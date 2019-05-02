@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import ApodScreen from './src/screens/ApodScreen.js';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> New APPOD APP </Text>
+        <ApodScreen date='today' />
       </View>
     );
   }
