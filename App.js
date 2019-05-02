@@ -6,7 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ApodScreen date='today' />
+        <ApodScreen date='random' />
       </View>
     );
   }
