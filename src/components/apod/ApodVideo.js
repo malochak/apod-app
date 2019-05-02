@@ -18,7 +18,10 @@ export default class ApodPic extends Component {
         <WebView
           javaScriptEnabled={true}
           source={{ uri: ytUrl  }}
-          />
+          style={{
+               height: 250
+          }}
+        />
     );
   }
 }

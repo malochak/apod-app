@@ -6,7 +6,8 @@ import {
   KeyboardAvoidingView,
   Image,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
 import Apod from '../components/apod/Apod.js'
@@ -31,7 +32,7 @@ export default class ApodScreen extends Component {
 
     axios.get('https://api.nasa.gov/planetary/apod', {
       params: {
-        api_key: 'A5SWdHubcRJvC3q8gSz9NBU8U0JdRH4cc54fNQSe',
+        api_key: '',
         date: apodDate
       }
     })
@@ -86,7 +87,7 @@ export default class ApodScreen extends Component {
 
   render() {
     if (this.state.apodData == '') {
-      return <Text> WAIT </Text>
+      return <ActivityIndicator size="large" color="#2980b6"  />
     }
     return (
       <ScrollView refreshControl={
