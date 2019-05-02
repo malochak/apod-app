@@ -5,6 +5,8 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Image,
+  ScrollView,
+  RefreshControl
 } from 'react-native';
 import axios from 'axios';
 import Apod from '../components/apod/Apod.js'
@@ -14,7 +16,8 @@ export default class ApodScreen extends Component {
     super(props);
     this.state = {
       apodData: '',
-      date: 'today'
+      date: 'today',
+      refreshing: false
     };
   }
 
@@ -75,12 +78,23 @@ export default class ApodScreen extends Component {
   	return random_year+ '-' +random_month + '-' + random_day;
   }
 
+  onRefresh = () => {
+    this.setState({refreshing: true});
+    this.getNewApod('random');
+    this.setState({refreshing: false});
+  }
+
   render() {
     if (this.state.apodData == '') {
       return <Text> WAIT </Text>
     }
     return (
-      <View>
+      <ScrollView refreshControl={
+                                  <RefreshControl
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={this.onRefresh}
+                                  />
+                                }>
         {/* @TODO
            if user is not logged show only apod
             if is logged show also comments section, rate panel and adding to favourities
@@ -88,7 +102,7 @@ export default class ApodScreen extends Component {
         <Apod title = {this.state.apodData.title} date = {this.state.apodData.date}
               url = {this.state.apodData.url} description = {this.state.apodData.explanation}
               mediaType = {this.state.apodData.media_type} />
-      </View>
+      </ScrollView>
     );
   }
 }
