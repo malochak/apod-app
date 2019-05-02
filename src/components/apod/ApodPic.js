@@ -13,7 +13,8 @@ export default class ApodPic extends Component {
       <View>
         <Image
           source={{uri: this.props.url}}
-          style={{height: 300}} />
+          style={{height: 300}}
+          resizeMode="contain" />
       </View>
     );
   }
