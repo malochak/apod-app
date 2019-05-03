@@ -13,7 +13,7 @@ import ApodVideo from './ApodVideo.js';
 export default class Apod extends Component {
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {this.props.mediaType == 'image' ?
             (
                 <ApodPic url = {this.props.url} />
@@ -22,12 +22,22 @@ export default class Apod extends Component {
                 <ApodVideo url = {this.props.url} style={{height: 200}} />
             )
         }
-        <ScrollView>
+        <View style={styles.infoContainer}>
         <Text> {this.props.title} </Text>
         <Text> {this.props.date} </Text>
         <Text> {this.props.description} </Text>
-        </ScrollView>
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      marginTop: 10
+    },
+    infoContainer: {
+      margin: 5,
+      textAlign: 'justify'
+    }
+})
