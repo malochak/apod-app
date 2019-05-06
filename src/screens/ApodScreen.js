@@ -32,7 +32,7 @@ export default class ApodScreen extends Component {
 
     axios.get('https://api.nasa.gov/planetary/apod', {
       params: {
-        api_key: 'A5SWdHubcRJvC3q8gSz9NBU8U0JdRH4cc54fNQSe',
+        api_key: '',
         date: apodDate
       }
     })

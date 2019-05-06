@@ -6,10 +6,6 @@ import ApodScreen from './src/screens/ApodScreen';
 import LogonScreen from './src/screens/LogonScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-
-
-
-
 export default class App extends React.Component{
   render(){
     return(
