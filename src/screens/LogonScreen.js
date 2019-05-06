@@ -13,6 +13,7 @@ import LoginForm from '../components/logon/LoginForm'
 export default class LogonScreen extends Component {
   render() {
     return (
+      // @TODO tweak KeyboardAvoidingView to keep space beetwen end of form and keyboard
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
         <View style={styles.logoContainer}>
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     opacity: 0.7
   },
   formContainer: {
-    width: '100%'
+    width: '100%',
+    paddingBottom: 5
   }
 });
