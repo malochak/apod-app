@@ -8,6 +8,8 @@ import {
   KeyboardAvoidingView,
   Image,
 } from 'react-native';
+import { createSwitchNavigator } from 'react-navigation';
+
 import LoginForm from '../components/logon/LoginForm'
 
 export default class LogonScreen extends Component {

@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Modal } from 'react-native';
 import {createAppContainer} from 'react-navigation';
-import { createMaterialTopTabNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import ApodScreen from './src/screens/ApodScreen';
 import LogonScreen from './src/screens/LogonScreen';
-import Icon from 'react-native-vector-icons/Ionicons';
+import SignupScreen from './src/screens/SignupScreen';
 
 export default class App extends React.Component{
   render(){
@@ -22,6 +24,7 @@ const styles = StyleSheet.create({
    flex: 1,
   },
 })
+
 
 const tabNavigationElements = {
   Apod: { screen: ApodScreen,

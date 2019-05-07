@@ -2,35 +2,56 @@
 
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
+import { auth } from './authentication_logic/auth';
 
-const handleLogin = () => {
-  Alert.alert('LOGIN HANDLING');
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+  error: null,
 };
 
 export default class LoginForm extends Component {
+
+  state = { email: '', password: '', errorMessage: null }
+  
+  handleLogin = (event) => {
+    Alert.alert("login handling")
+  }
+
   render() {
+
     return (
       <View style={styles.container}>
-        <TextInput style = {styles.input}
-             autoCapitalize="none"
-             onSubmitEditing={() => this.passwordInput.focus()}
-             autoCorrect={false}
-             keyboardType='email-address'
-             returnKeyType="next"
-             placeholder='Email'
-             placeholderTextColor='rgba(225,225,225,0.7)'/>
+        {this.state.errorMessage &&
+          <Text style={{ color: 'red' }}>
+            {this.state.errorMessage}
+          </Text>}
 
-          <TextInput style = {styles.input}
-            returnKeyType="go"
-            ref={(input)=> this.passwordInput = input}
-            placeholder='Password'
-            placeholderTextColor='rgba(225,225,225,0.7)'
-            secureTextEntry/>
+        <TextInput
+          style={styles.input}
+          autoCapitalize="none"
+          placeholder="Email"
+          onChangeText={email => this.setState({ email })}
+          value={this.state.email}
+        />
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
-            <Text  style={styles.buttonText}>LOGIN</Text>
-          </TouchableOpacity>
+        <TextInput
+          secureTextEntry
+          style={styles.input}
+          autoCapitalize="none"
+          placeholder="Password"
+          onChangeText={password => this.setState({ password })}
+          value={this.state.password}
+        />
 
+        <TouchableOpacity style={styles.signInButtonContainer} onPress={this.handleLogin}>
+          <Text  style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.signUpButtonContainer} onPress={() => this.props.navigation.navigate('SignUp')}>
+          <Text  style={styles.buttonText}>Don't have an account? Sign Up</Text>
+        </TouchableOpacity>
+          
       </View>
     );
   }
@@ -47,13 +68,18 @@ const styles = StyleSheet.create({
         padding: 10,
         color: '#fff'
     },
-    buttonContainer:{
+    signInButtonContainer:{
         backgroundColor: '#92cbc5',
         paddingVertical: 15
     },
+    signUpButtonContainer:{
+        paddingTop: 15
+  },
     buttonText:{
         color: '#fff',
         textAlign: 'center',
-        fontWeight: '700'
+        fontWeight: '700',
+        fontSize: 16,
+        opacity: 0.7
     }
   })
