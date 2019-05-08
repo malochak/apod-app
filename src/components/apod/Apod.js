@@ -23,8 +23,9 @@ export default class Apod extends Component {
             )
         }
         <View style={styles.infoContainer}>
-        <Text> {this.props.title} </Text>
-        <Text> {this.props.date} </Text>
+        <Text style={styles.title}> {this.props.title} </Text>
+        <Text> {this.props.likes} </Text>
+        <Text style={styles.date}> {this.props.date} </Text>
         <Text> {this.props.description} </Text>
         </View>
       </View>
@@ -39,5 +40,12 @@ const styles = StyleSheet.create({
     infoContainer: {
       margin: 5,
       textAlign: 'justify'
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: 16
+    },
+    date: {
+      marginBottom: 5
     }
 })
