@@ -5,12 +5,34 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Image,
-  ScrollView
+  ScrollView,
+  Button
 } from 'react-native';
+import { firebase } from '../logon/authentication_logic';
 import ApodPic from './ApodPic.js';
 import ApodVideo from './ApodVideo.js';
 
 export default class Apod extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          likes: props.likes
+     };
+  }
+
+  updateLikes(date) {
+      var likes = 0;
+      var likesDb = firebase.app.database().ref(`apods/${date}/likes`);
+      likesDb.on('value', res => {
+        likes = res.val();
+      });
+      likes++;
+      this.setState({
+          likes: likes
+      });
+      likesDb.set(likes);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -24,7 +46,9 @@ export default class Apod extends Component {
         }
         <View style={styles.infoContainer}>
         <Text style={styles.title}> {this.props.title} </Text>
-        <Text> {this.props.likes} </Text>
+        <Button title="LIKE"
+                onPress={() => this.updateLikes(this.props.date)}/>
+        <Text> {this.state.likes} </Text>
         <Text style={styles.date}> {this.props.date} </Text>
         <Text> {this.props.description} </Text>
         </View>
