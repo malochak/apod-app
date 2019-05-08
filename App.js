@@ -62,10 +62,9 @@ const tabNavigatorConfig = {
     },
     showIcon: 'true',
   },
- 
+
 }
 
 const TabNavigator = createMaterialTopTabNavigator(tabNavigationElements, tabNavigatorConfig)
 
 const AppContainer = createAppContainer(TabNavigator);
-

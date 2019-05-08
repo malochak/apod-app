@@ -2,27 +2,46 @@
 
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
-// import firebase from 'react-native-firebase'
+import { auth } from './authentication_logic/';
+
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+  error: null,
+};
+
 
 export default class SignupForm extends Component {
 
+  state = INITIAL_STATE
+
+
   handleSignUp = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => Alert.alert('signedUp'))
-      .catch(error => Alert.alert(error))
-  }
+    Alert.alert(this.state.email)
+
+    const {
+      email,
+      password
+    } = this.state
+
+    auth.doCreateUserWithEmailAndPassword(email, password)
+    .then(authUser => {
+      this.setState( () => ({...INITIAL_STATE}))
+    }).catch(error => {
+      Alert.alert("ERROR")
+    })
+
+}
 
   render() {
     return (
       <View style={styles.container}>
-          
+
           <TextInput
             placeholder="Email"
             autoCapitalize="none"
-            style={styles.textInput}
-           
+            style={styles.input}
+
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
             placeholderTextColor='rgba(225,225,225,0.7)'
@@ -32,7 +51,7 @@ export default class SignupForm extends Component {
             secureTextEntry
             placeholder="Password"
             autoCapitalize="none"
-            style={styles.textInput}
+            style={styles.input}
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
             placeholderTextColor='rgba(225,225,225,0.7)'

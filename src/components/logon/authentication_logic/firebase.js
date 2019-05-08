@@ -1,12 +1,12 @@
 import * as firebase from 'firebase';
 
-const firebaseConfig = {
-  apiKey: "test"
+  const firebaseConfig = {
+
 };
 
   let app = null;
   if (!firebase.apps.length) {
-    app = firebase.initializeApp(config);
+    app = firebase.initializeApp(firebaseConfig);
   }
 
   const provider = new firebase.auth.FacebookAuthProvider();
