@@ -30,9 +30,6 @@ export default class ApodScreen extends Component {
   getNewApod(date) {
     {/* '2007-12-21' use that date to test horizontal img*/}
     var apodDate = date == 'today' ? this.createTodaysDate() : this.getRandomApodDate();
-    console.debug(date)
-    console.debug(apodDate)
-    console.debug(firebase.app.database().ref(`pictures/${apodDate}`))
     firebase.app.database().ref(`apods/${apodDate}`).on('value', (snapshot) => {
          if (snapshot.exists()) {
             this.setState({
