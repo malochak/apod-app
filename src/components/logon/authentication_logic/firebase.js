@@ -1,8 +1,8 @@
 import * as firebase from 'firebase';
 
-const config = {
-    apiKey: "test",
-  };
+const firebaseConfig = {
+  apiKey: "test"
+};
 
   let app = null;
   if (!firebase.apps.length) {

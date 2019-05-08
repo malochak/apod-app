@@ -2,42 +2,47 @@
 
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
-
-const handleLogin = () => {
-  Alert.alert('LOGIN HANDLING');
-};
+// import firebase from 'react-native-firebase'
 
 export default class SignupForm extends Component {
+
+  handleSignUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => Alert.alert('signedUp'))
+      .catch(error => Alert.alert(error))
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TextInput style = {styles.input}
-             autoCapitalize="none"
-             onSubmitEditing={() => this.passwordInput.focus()}
-             autoCorrect={false}
-             keyboardType='email-address'
-             returnKeyType="next"
-             placeholder='Email'
-             placeholderTextColor='rgba(225,225,225,0.7)'/>
-
-          <TextInput style = {styles.input}
-            returnKeyType="go"
-            ref={(input)=> this.passwordInput = input}
-            placeholder='Password'
+          
+          <TextInput
+            placeholder="Email"
+            autoCapitalize="none"
+            style={styles.textInput}
+           
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
             placeholderTextColor='rgba(225,225,225,0.7)'
-            secureTextEntry/>
+          />
 
-          <TextInput style = {styles.input}
-            returnKeyType="go"
-            ref={(input)=> this.passwordInput = input}
-            placeholder='Re-type password'
+          <TextInput
+            secureTextEntry
+            placeholder="Password"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
             placeholderTextColor='rgba(225,225,225,0.7)'
-            secureTextEntry/>
-          <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
-            <Text  style={styles.buttonText}>Sign Up</Text>
+          />
+
+          <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignUp}>
+            <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
 
-      </View>
+        </View>
     );
   }
 }

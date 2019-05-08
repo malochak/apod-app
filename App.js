@@ -41,6 +41,13 @@ Logon: { screen: LogonScreen,
           <Icon name='ios-log-in' color={tintColor} size={24} />
         )
       }},
+      SignUp: { screen: SignupScreen,
+        navigationOptions: {
+          tabBarLabel: 'Sign Up',
+          tabBarIcon: ({tintColor}) => (
+            <Icon name='ios-log-in' color={tintColor} size={24} />
+          )
+        }},
 }
 
 const tabNavigatorConfig = {
