@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
-import { auth } from './authentication_logic/auth';
+import { auth } from './authentication_logic/';
 
 const INITIAL_STATE = {
   email: '',
@@ -13,9 +13,24 @@ const INITIAL_STATE = {
 export default class LoginForm extends Component {
 
   state = { email: '', password: '', errorMessage: null }
-  
+
   handleLogin = (event) => {
     Alert.alert("login handling")
+
+    const {
+      email,
+      password,
+    } = this.state;
+
+    auth.doSignInWithEmailAndPassword(email, password)
+    .then(() => {
+      this.setState(() => ({...INITIAL_STATE}))
+      Alert.alert("You are logged in")
+    })
+    .catch( error => {
+      Alert.alert("Error")
+    })
+
   }
 
   render() {
@@ -51,7 +66,7 @@ export default class LoginForm extends Component {
         <TouchableOpacity style={styles.signUpButtonContainer} onPress={() => this.props.navigation.navigate('SignUp')}>
           <Text  style={styles.buttonText}>Don't have an account? Sign Up</Text>
         </TouchableOpacity>
-          
+
       </View>
     );
   }
