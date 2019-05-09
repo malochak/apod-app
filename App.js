@@ -3,10 +3,13 @@ import { StyleSheet, Text, View, SafeAreaView, Modal } from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { firebase, auth } from './src/components/logon/authentication_logic/'
+
 
 import ApodScreen from './src/screens/ApodScreen';
 import LogonScreen from './src/screens/LogonScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 export default class App extends React.Component{
   
@@ -21,8 +24,8 @@ export default class App extends React.Component{
   componentDidMount() {
     firebase.auth.onAuthStateChanged(authUser => {
       authUser
-        ? console.debug(authUser)
-        : console.debug('error')
+        ? console.debug(authUser.email)
+        : console.debug('NOT SIGNED IN')
     });
   }
     
@@ -42,6 +45,7 @@ const styles = StyleSheet.create({
   },
 })
 
+
 const tabNavigationElements = {
   Apod: { screen: props => <ApodScreen date='today' />,
     navigationOptions: {
@@ -57,11 +61,18 @@ const tabNavigationElements = {
           <Icon name='ios-log-in' color={tintColor} size={24} />
         )
       }},
-      SignUp: { screen: SignupScreen,
+    SignUp: { screen: SignupScreen,
+      navigationOptions: {
+        tabBarLabel: 'Sign Up',
+        tabBarIcon: ({tintColor}) => (
+          <Icon name='ios-log-in' color={tintColor} size={24} />
+        )
+      }},
+      Profile: { screen: ProfileScreen,
         navigationOptions: {
-          tabBarLabel: 'Sign Up',
+          tabBarLabel: 'Profile',
           tabBarIcon: ({tintColor}) => (
-            <Icon name='ios-log-in' color={tintColor} size={24} />
+            <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
 }
