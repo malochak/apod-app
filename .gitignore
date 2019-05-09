@@ -8,3 +8,6 @@ npm-debug.*
 .DS_STORE
 apikey.txt
 ./src/components/logon/authentication_logic/firebase.js
+
+# api keys
+.env
