@@ -9,6 +9,23 @@ import LogonScreen from './src/screens/LogonScreen';
 import SignupScreen from './src/screens/SignupScreen';
 
 export default class App extends React.Component{
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      authUser: null,
+    };
+  }
+
+  componentDidMount() {
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? console.debug(authUser)
+        : console.debug('error')
+    });
+  }
+    
   render(){
     return(
        <SafeAreaView style={styles.container}>
