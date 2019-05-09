@@ -25,16 +25,15 @@ const styles = StyleSheet.create({
   },
 })
 
-
 const tabNavigationElements = {
-  Apod: { screen: ApodScreen,
+  Apod: { screen: props => <ApodScreen date='today' />,
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: ({tintColor}) => (
         <Icon name='ios-home' color={tintColor} size={24} />
       )
     }},
-Logon: { screen: LogonScreen,
+  Logon: { screen: LogonScreen,
       navigationOptions: {
         tabBarLabel: 'Sign In',
         tabBarIcon: ({tintColor}) => (
@@ -61,6 +60,9 @@ const tabNavigatorConfig = {
       height: 0
     },
     showIcon: 'true',
+    labelStyle: {
+     fontSize: 10
+     }
   },
 
 }

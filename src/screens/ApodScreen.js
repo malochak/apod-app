@@ -10,6 +10,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
+import { firebase } from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
 
 export default class ApodScreen extends Component {
@@ -28,28 +29,53 @@ export default class ApodScreen extends Component {
 
   getNewApod(date) {
     {/* '2007-12-21' use that date to test horizontal img*/}
-    var apodDate = date == 'today' ? '' : this.getRandomApodDate();
+    var apodDate = date == 'today' ? this.createTodaysDate() : this.getRandomApodDate();
+    firebase.app.database().ref(`apods/${apodDate}`).on('value', (snapshot) => {
+         if (snapshot.exists()) {
+            this.setState({
+                 apodData: snapshot.val()
+            });
+         }
+         else {
+            this.setAndSaveApodToDatabase(apodDate);
+         }
+    });
+  }
 
+  setAndSaveApodToDatabase(apodDate) {
     axios.get('https://api.nasa.gov/planetary/apod', {
-      params: {
-        api_key: '',
-        date: apodDate
-      }
+        params: {
+           api_key: '',
+           date: apodDate
+        }
     })
     .then(( {data} ) =>  {
-      this.setState({
-          apodData: data
-      });
+        this.setState({
+            apodData: data
+        });
+        var newItem = firebase.app.database().ref(`apods/`);
+        newItem.update({ [apodDate]: data});
+        var likes = firebase.app.database().ref(`apods/${apodDate}`);
+        likes.update( { 'likes': 0});
     })
     .catch((error) =>  {
-      console.debug(error)
-      {/* @TODO
-         do sth with errors
-      */}
-      this.setState({
-          apodData: 'error'
-      });
+         console.debug(error)
+         {/* @TODO
+           do sth with errors
+         */}
+         this.setState({
+             apodData: 'error'
+       });
     });
+  }
+
+  createTodaysDate() {
+    var now = new Date();
+    var year = now.getFullYear().toString();
+    var month = (0+(now.getMonth()+1).toString()).slice(-2);
+    var day = (0+(now.getDate().toString())).slice(-2);
+
+    return year + "-" + month + "-" + day;
   }
 
   getRandomApodDate() {
@@ -102,7 +128,8 @@ export default class ApodScreen extends Component {
         */}
         <Apod title = {this.state.apodData.title} date = {this.state.apodData.date}
               url = {this.state.apodData.url} description = {this.state.apodData.explanation}
-              mediaType = {this.state.apodData.media_type} />
+              mediaType = {this.state.apodData.media_type}
+              likes = {this.state.apodData.likes} />
       </ScrollView>
     );
   }
