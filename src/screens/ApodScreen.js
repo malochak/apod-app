@@ -45,8 +45,8 @@ export default class ApodScreen extends Component {
   setAndSaveApodToDatabase(apodDate) {
     axios.get('https://api.nasa.gov/planetary/apod', {
         params: {
-           api_key: '',
-           date: apodDate
+          api_key: process.env.APOD_API_KEY,
+          date: apodDate
         }
     })
     .then(( {data} ) =>  {
