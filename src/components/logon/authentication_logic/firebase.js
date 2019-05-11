@@ -1,7 +1,6 @@
 import * as firebase from 'firebase';
 
-  const firebaseConfig = {
-
+const firebaseConfig = {
 };
 
   let app = null;

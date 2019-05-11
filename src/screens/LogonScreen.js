@@ -24,7 +24,7 @@ export default class LogonScreen extends Component {
             style='logo'
             source={require('../../assets/logo.png')}
           />
-          <Text style={styles.title}> APPOD APP </Text>
+          <Text style={styles.title}> APOD APP </Text>
 
         </View>
 

@@ -15,11 +15,10 @@ export default class ApodPic extends Component {
         <ActivityIndicator size="large" color="#2980b6"  />
     */}
     return (
-      <View>
-        <Image
+      <View style={styles.border}>
+        <Image style={styles.container}
           source={{uri: this.props.url}}
-          style={{height: 250}}
-          resizeMode="contain" />
+          style={{height: 300}} />
       </View>
     );
   }
@@ -29,7 +28,14 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    height: 300,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin:5
+  },
+  border:{
+  borderRadius: 4,
+  borderWidth: 3,
+  borderColor: '#92CBC5',
+  marginLeft:10,
+  marginRight:10
   }
 });

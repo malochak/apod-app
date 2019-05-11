@@ -45,7 +45,7 @@ export default class ApodScreen extends Component {
   setAndSaveApodToDatabase(apodDate) {
     axios.get('https://api.nasa.gov/planetary/apod', {
         params: {
-           api_key: '',
+        api_key: process.env.APOD_API_KEY,
            date: apodDate
         }
     })
@@ -116,7 +116,7 @@ export default class ApodScreen extends Component {
       return <ActivityIndicator size="large" color="#2980b6"  />
     }
     return (
-      <ScrollView refreshControl={
+      <ScrollView style={styles.container} refreshControl={
                                   <RefreshControl
                                     refreshing={this.state.refreshing}
                                     onRefresh={this.onRefresh}
@@ -127,10 +127,17 @@ export default class ApodScreen extends Component {
             if is logged show also comments section, rate panel and adding to favourities
         */}
         <Apod title = {this.state.apodData.title} date = {this.state.apodData.date}
-              url = {this.state.apodData.url} description = {this.state.apodData.explanation}
+              url = {this.state.apodData.url}
+              description = {this.state.apodData.explanation}
               mediaType = {this.state.apodData.media_type}
               likes = {this.state.apodData.likes} />
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#2c3e50"
+  }
+})

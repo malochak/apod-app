@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Modal } from 'react-native';
-import {createAppContainer} from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -8,12 +8,12 @@ import ApodScreen from './src/screens/ApodScreen';
 import LogonScreen from './src/screens/LogonScreen';
 import SignupScreen from './src/screens/SignupScreen';
 
-export default class App extends React.Component{
-  render(){
-    return(
-       <SafeAreaView style={styles.container}>
-          <AppContainer />
-        </SafeAreaView>
+export default class App extends React.Component {
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <AppContainer />
+      </SafeAreaView>
 
     )
   }
@@ -21,48 +21,57 @@ export default class App extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
+    flex: 1,
+    backgroundColor: '#262e3d'
   },
 })
 
 const tabNavigationElements = {
-  Apod: { screen: props => <ApodScreen date='today' />,
+  Apod: {
+    screen: props => <ApodScreen date='today' />,
     navigationOptions: {
       tabBarLabel: 'Home',
-      tabBarIcon: ({tintColor}) => (
+      tabBarIcon: ({ tintColor }) => (
         <Icon name='ios-home' color={tintColor} size={24} />
       )
-    }},
-  Logon: { screen: LogonScreen,
-      navigationOptions: {
-        tabBarLabel: 'Sign In',
-        tabBarIcon: ({tintColor}) => (
-          <Icon name='ios-log-in' color={tintColor} size={24} />
-        )
-      }},
-      SignUp: { screen: SignupScreen,
-        navigationOptions: {
-          tabBarLabel: 'Sign Up',
-          tabBarIcon: ({tintColor}) => (
-            <Icon name='ios-log-in' color={tintColor} size={24} />
-          )
-        }},
+    }
+  },
+  Logon: {
+    screen: LogonScreen,
+    navigationOptions: {
+      tabBarLabel: 'Sign In',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name='ios-log-in' color={tintColor} size={24} />
+      )
+    }
+  },
+  SignUp: {
+    screen: SignupScreen,
+    navigationOptions: {
+      tabBarLabel: 'Sign Up',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name='ios-log-in' color={tintColor} size={24} />
+      )
+    }
+  },
 }
 
 const tabNavigatorConfig = {
   initialRouteName: 'Apod',
   tabBarPosition: 'bottom',
-  tabBarOptions : {
+  tabBarOptions: {
     activeTintColor: '#92cbc5',
     inactiveTintColor: '#FFF',
+    shift: 1,
     style: { backgroundColor: '#262e3d' },
     indicatorStyle: {
-      height: 0
+      height: 5,
+      backgroundColor: "#92CBC5"
     },
     showIcon: 'true',
     labelStyle: {
-     fontSize: 10
-     }
+      fontSize: 10
+    }
   },
 
 }
