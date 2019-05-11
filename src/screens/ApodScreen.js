@@ -13,6 +13,8 @@ import axios from 'axios';
 import { firebase } from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
 
+import {APOD_API_KEY} from 'react-native-dotenv'
+
 export default class ApodScreen extends Component {
   constructor(props) {
     super(props);
@@ -45,8 +47,8 @@ export default class ApodScreen extends Component {
   setAndSaveApodToDatabase(apodDate) {
     axios.get('https://api.nasa.gov/planetary/apod', {
         params: {
-           api_key: '',
-           date: apodDate
+          api_key: APOD_API_KEY,
+          date: apodDate
         }
     })
     .then(( {data} ) =>  {
