@@ -4,8 +4,8 @@ import { firebase, auth } from './src/components/logon/authentication_logic/'
 
 import AppContainer from './src/components/navigation/TabBarNavigation'
 
-export default class App extends React.Component{
-  
+export default class App extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,12 +20,12 @@ export default class App extends React.Component{
         : console.debug('NOT SIGNED IN')
     });
   }
-    
-  render(){
-    return(
-       <SafeAreaView style={styles.container}>
-          <AppContainer />
-        </SafeAreaView>
+
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <AppContainer />
+      </SafeAreaView>
 
     )
   }
@@ -33,6 +33,7 @@ export default class App extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
+    flex: 1,
+    backgroundColor: '#262e3d'
   },
 })
