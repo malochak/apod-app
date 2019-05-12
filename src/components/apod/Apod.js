@@ -46,6 +46,7 @@ export default class Apod extends Component {
               { star: this.state.star === 'ios-star-outline' ?  'ios-star' : 'ios-star-outline' }
           ))} />
           <Text style={styles.title}> {this.props.title} </Text>
+          <Text> {this.props.date} </Text>
         </View>
         {this.props.mediaType == 'image' ?
             (
