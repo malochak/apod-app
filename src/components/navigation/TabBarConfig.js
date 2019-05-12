@@ -1,7 +1,9 @@
-import ApodScreen from './src/screens/ApodScreen';
-import LogonScreen from './src/screens/LogonScreen';
-import SignupScreen from './src/screens/SignupScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
+import React from 'react'
+
+import ApodScreen from '../../screens/ApodScreen';
+import LogonScreen from '../../screens/LogonScreen';
+import SignupScreen from '../../screens/SignupScreen';
+import ProfileScreen from '../../screens/ProfileScreen';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Modal } from 'react-native';
 import { firebase, auth } from './src/components/logon/authentication_logic/'
 
-import AppContainer from './src/components/navigation/TabBarNavigation/'
+import AppContainer from './src/components/navigation/TabBarNavigation'
 
 export default class App extends React.Component{
   
@@ -36,9 +36,3 @@ const styles = StyleSheet.create({
    flex: 1,
   },
 })
-
-
-
-
-
-
