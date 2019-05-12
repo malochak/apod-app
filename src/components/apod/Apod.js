@@ -13,13 +13,6 @@ import ApodPic from './ApodPic.js';
 import ApodVideo from './ApodVideo.js';
 
 export default class Apod extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          likes: props.likes
-     };
-  }
-
   updateLikes(date) {
       var likes = 0;
       var likesDb = firebase.app.database().ref(`apods/${date}/likes`);
@@ -27,9 +20,7 @@ export default class Apod extends Component {
         likes = res.val();
       });
       likes++;
-      this.setState({
-          likes: likes
-      });
+      this.props.likes = likes;
       likesDb.set(likes);
   }
 
@@ -48,7 +39,7 @@ export default class Apod extends Component {
         <Text style={styles.title}> {this.props.title} </Text>
         <Button title="LIKE"
                 onPress={() => this.updateLikes(this.props.date)}/>
-        <Text> {this.state.likes} </Text>
+        <Text> {this.props.likes} </Text>
         <Text style={styles.date}> {this.props.date} </Text>
         <Text> {this.props.description} </Text>
         </View>
