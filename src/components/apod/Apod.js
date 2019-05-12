@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   ListView,
@@ -40,31 +40,31 @@ export default class Apod extends Component {
     return (
 
       <View style={styles.container}>
-        <View style={styles.grid}>
+        <View style={styles.topGrid}>
           <Icon style={{ marginRight: 25 }} name={this.state.star} color='#92CBC5' size={28}
             onPress={() => this.setState(prev => (
-              { star: this.state.star === 'ios-star-outline' ?  'ios-star' : 'ios-star-outline' }
-          ))} />
-          <Text style={styles.title}> {this.props.title} </Text>
-          <Text> {this.props.date} </Text>
+              { star: this.state.star === 'ios-star-outline' ? 'ios-star' : 'ios-star-outline' }
+            ))} />
+          <Text style={{ marginTop: 6, color: "#fff" }}> {this.props.date} </Text>
         </View>
+        <Text style={styles.title}> {this.props.title} </Text>
         {this.props.mediaType == 'image' ?
-            (
-                <ApodPic url = {this.props.url} />
-            )
-            :(
-                <ApodVideo url = {this.props.url} style={{height: 200}} />
-            )
+          (
+            <ApodPic url={this.props.url} />
+          )
+          : (
+            <ApodVideo url={this.props.url} style={{ height: 200 }} />
+          )
         }
         <View style={styles.infoContainer}>
 
           <View style={styles.grid}>
             <Icon style={{ marginRight: 10 }} name={this.state.heart} color='#92CBC5' size={24} onPress={() => {
               this.updateLikes(this.props.date)
-              this.setState({heart: 'ios-heart'})
-          }}/>
+              this.setState({ heart: 'ios-heart' })
+            }} />
 
-            <Text style={{ marginLeft: 10, marginTop:3, color:'#fff' }}> {this.props.likes} </Text>
+            <Text style={{ marginLeft: 10, marginTop: 3, color: '#fff' }}> {this.props.likes} </Text>
           </View>
 
           <Text style={styles.description}>  {this.props.description} </Text>
@@ -78,9 +78,19 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 10,
   },
+  topGrid: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: 12,
+    marginBottom: 12,
+    marginRight: 20,
+    marginLeft: 20,
+    flex: 1,
+    flexDirection: 'row'
+  },
   grid: {
-    marginTop:12,
-    marginBottom:12,
+    marginTop: 12,
+    marginBottom: 12,
     justifyContent: 'center',
     flex: 1,
     flexDirection: 'row'

@@ -30,12 +30,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     margin:5
-  },
-  border:{
-  borderRadius: 4,
-  borderWidth: 3,
-  borderColor: '#92CBC5',
-  marginLeft:10,
-  marginRight:10
   }
 });
