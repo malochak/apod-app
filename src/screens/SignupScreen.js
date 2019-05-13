@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   signInButtonContainer:{
-    paddingTop: 15
+    padding: 5
   },
   buttonText:{
       color: '#fff',

@@ -9,7 +9,7 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { createSwitchNavigator, withNavigation } from 'react-navigation';
 
 import LoginForm from '../components/logon/LoginForm'
 
@@ -68,10 +68,9 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    paddingBottom: 5
   },   
   signUpButtonContainer:{
-    paddingTop: 15
+    padding: 5
   },
     buttonText:{
     color: '#fff',
