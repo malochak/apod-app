@@ -8,7 +8,8 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  Button
+  Button,
+  Alert
 } from 'react-native';
 import { firebase } from '../logon/authentication_logic';
 import ApodPic from './ApodPic.js';
@@ -19,21 +20,64 @@ export default class Apod extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      likes: props.likes,
       star: 'ios-star-outline',
       heart: 'ios-heart-empty'
     };
   }
 
+  componentDidMount() {
+    if(this.isUserLoggedIn()) {
+        console.debug(this.checkIfUserAlreadyLikedThisApod())
+        if (this.checkIfUserAlreadyLikedThisApod()) {
+            this.setState({ heart: 'ios-heart' })
+        } else {
+            this.setState({ heart: 'ios-heart-empty' })
+        }
+    }
+  }
+
   updateLikes(date) {
-    var likes = 0;
-    var likesDb = firebase.app.database().ref(`apods/${date}/likes`);
-    likesDb.on('value', res => {
-      likes = res.val();
-    });
-    likes++;
-    this.props.likes = likes;
-    likesDb.set(likes);
+    if (this.isUserLoggedIn()) {
+        if (!this.checkIfUserAlreadyLikedThisApod()) {
+            var likes = 0;
+            var likesDb = firebase.app.database().ref(`apods/${date}/likes`);
+            likesDb.on('value', res => {
+              likes = res.val();
+            });
+            likes++;
+            this.props.likes = likes;
+            this.setState({ heart: 'ios-heart' })
+            likesDb.set(likes);
+        } else {
+            this.setState({ heart: 'ios-heart' })
+        }
+    } else {
+       Alert.alert("Log in to like an APOD.")
+    }
+  }
+
+  checkIfUserAlreadyLikedThisApod() {
+     var exists = false;
+     if (this.isUserLoggedIn()) {
+        var userId = firebase.auth.currentUser.uid;
+        var date = this.props.date;
+        firebase.app.database().ref(`users/likes/${userId}/${date}`).on('value', (snapshot) => {
+                if (snapshot.exists()) {
+                     exists = true;
+                     this.setState({ heart: 'ios-heart' })
+                }
+                else {
+                    exists = false;
+                    this.setState({ heart: 'ios-heart-empty' })
+                }
+        });
+     }
+     console.debug(exists);
+     return exists;
+  }
+
+  isUserLoggedIn() {
+    return firebase.auth.currentUser != null;
   }
 
   render() {
@@ -61,7 +105,6 @@ export default class Apod extends Component {
           <View style={styles.grid}>
             <Icon style={{ marginRight: 10 }} name={this.state.heart} color='#92CBC5' size={24} onPress={() => {
               this.updateLikes(this.props.date)
-              this.setState({ heart: 'ios-heart' })
             }} />
 
             <Text style={{ marginLeft: 10, marginTop: 3, color: '#fff' }}> {this.props.likes} </Text>
