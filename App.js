@@ -9,22 +9,22 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authUser: null,
+    
     };
+   
   }
 
-  componentDidMount() {
-    firebase.auth.onAuthStateChanged(authUser => {
-      authUser
-        ? console.debug(authUser.email)
-        : console.debug('NOT SIGNED IN')
-    });
-  }
+  componentDidMount = () => firebase.auth.onAuthStateChanged( 
+      user => user ? this.setState({authUser: true}) : this.setState({authUser : false})
+    )
+
+  refreshAuth = () => this.setState({authUser : authUser, refresh: !this.state.refresh} )
 
   render() {
+    console.debug('in app : ' + this.state.authUser)
     return (
       <SafeAreaView style={styles.container}>
-        <AppContainer />
+        <AppContainer authUser = {this.state.authUser}/>
       </SafeAreaView>
 
     )
