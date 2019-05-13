@@ -7,7 +7,7 @@ export default class AppContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        authUser: props.authUsera
+        authUser:  props.authUser
     };
     
   }
@@ -20,7 +20,7 @@ export default class AppContainer extends Component {
                                     
     const TabBar = createAppContainer(TabNavigator);
 
-    console.debug('in tab bar : ' + props.authUser)
+    console.debug('in tab bar : ' + this.props.authUser)
     return (
         <TabBar />
     );
