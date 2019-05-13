@@ -18,7 +18,7 @@ export default class ApodPic extends Component {
       <View style={styles.border}>
         <Image style={styles.container}
           source={{uri: this.props.url}}
-          style={{height: 300}} />
+          />
       </View>
     );
   }
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    margin:5
+    height: 250
   }
 });
