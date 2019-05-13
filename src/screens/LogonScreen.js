@@ -16,7 +16,6 @@ import LoginForm from '../components/logon/LoginForm'
 class LogonScreen extends Component {
   render() {
     return (
-      // @TODO tweak KeyboardAvoidingView to keep space beetwen end of form and keyboard
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
         <View style={styles.logoContainer}>
@@ -25,7 +24,6 @@ class LogonScreen extends Component {
             style='logo'
             source={require('../../assets/logo.png')}
           />
-          <Text style={styles.title}> APOD APP </Text>
 
         </View>
 
