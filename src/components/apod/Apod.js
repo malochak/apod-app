@@ -25,14 +25,19 @@ export default class Apod extends Component {
     };
   }
 
+  componentWillReceiveProps() {
+    this.componentDidMount();
+  }
+
   componentDidMount() {
     if(this.isUserLoggedIn()) {
-        console.debug(this.checkIfUserAlreadyLikedThisApod())
         if (this.checkIfUserAlreadyLikedThisApod()) {
             this.setState({ heart: 'ios-heart' })
         } else {
             this.setState({ heart: 'ios-heart-empty' })
         }
+    } else {
+        this.setState({ heart: 'ios-heart-empty' });
     }
   }
 
@@ -46,8 +51,11 @@ export default class Apod extends Component {
             });
             likes++;
             this.props.likes = likes;
-            this.setState({ heart: 'ios-heart' })
+            this.setState({ heart: 'ios-heart' });
             likesDb.set(likes);
+            var userId = firebase.auth.currentUser.uid;
+            var userLikeDb = firebase.app.database().ref(`users/likes/${userId}/${date}`);
+            userLikeDb.set(date);
         } else {
             this.setState({ heart: 'ios-heart' })
         }
@@ -64,15 +72,14 @@ export default class Apod extends Component {
         firebase.app.database().ref(`users/likes/${userId}/${date}`).on('value', (snapshot) => {
                 if (snapshot.exists()) {
                      exists = true;
-                     this.setState({ heart: 'ios-heart' })
+                     this.setState({ heart: 'ios-heart' });
                 }
                 else {
                     exists = false;
-                    this.setState({ heart: 'ios-heart-empty' })
+                    this.setState({ heart: 'ios-heart-empty' });
                 }
         });
      }
-     console.debug(exists);
      return exists;
   }
 
