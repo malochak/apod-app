@@ -1,3 +1,5 @@
+![Logo](https://raw.githubusercontent.com/pankeny/apod-app/master/assets/logo.png?token=AFTLNJWUBKTQOETMRZOB7AC44MKTM)
+
 # apod-app
 
 ### To start:
@@ -8,8 +10,6 @@
 * get expo application on your phone
 * scan QR code
 * the app will load on your phone automatically 
-
-![Screenshot](https://github.com/pankeny/apod-app/tree/master/assets/view.jpg)
 
 ### WorkFlow
 * Every task should be done on new branch
