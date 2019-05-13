@@ -6,7 +6,13 @@ import SignupScreen from '../../screens/SignupScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createSwitchNavigator} from 'react-navigation';
 
+const LoginStack = createSwitchNavigator({
+  SignIn : {screen : LogonScreen},
+  SignUp : {screen : SignupScreen }
+}
+)
 
 export const tabNavigationElements = {
     Apod: { screen: props => <ApodScreen date='today' />,
@@ -16,27 +22,13 @@ export const tabNavigationElements = {
           <Icon name='ios-home' color={tintColor} size={24} />
         )
       }},
-    Logon: { screen: LogonScreen,
+    Logon: { screen: LoginStack,
         navigationOptions: {
           tabBarLabel: 'Sign In',
           tabBarIcon: ({tintColor}) => (
             <Icon name='ios-log-in' color={tintColor} size={24} />
           )
         }},
-      SignUp: { screen: SignupScreen,
-        navigationOptions: {
-          tabBarLabel: 'Sign Up',
-          tabBarIcon: ({tintColor}) => (
-            <Icon name='ios-log-in' color={tintColor} size={24} />
-          )
-        }},
-        Profile: { screen: ProfileScreen,
-          navigationOptions: {
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({tintColor}) => (
-              <Icon name='ios-contact' color={tintColor} size={24} />
-            )
-          }},
   }
 
  export const tabNavigatorConfig = {
