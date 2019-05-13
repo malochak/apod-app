@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
 import { auth } from './authentication_logic/';
+import { withNavigation } from 'react-navigation';
+
 
 const INITIAL_STATE = {
   email: '',
@@ -61,10 +63,6 @@ export default class LoginForm extends Component {
 
         <TouchableOpacity style={styles.signInButtonContainer} onPress={this.handleLogin}>
           <Text  style={styles.buttonText}>Sign In</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.signUpButtonContainer} onPress={() => this.props.navigation.navigate('SignUp')}>
-          <Text  style={styles.buttonText}>Don't have an account? Sign Up</Text>
         </TouchableOpacity>
 
       </View>

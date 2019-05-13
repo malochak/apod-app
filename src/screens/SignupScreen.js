@@ -6,10 +6,14 @@ import {
   Text,
   StyleSheet,
   KeyboardAvoidingView,
+  TouchableOpacity
 } from 'react-native';
 import SignupForm from '../components/logon/SignupForm'
 
-export default class SignupScreen extends Component {
+import { withNavigation } from 'react-navigation'
+
+
+class SignupScreen extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -18,11 +22,16 @@ export default class SignupScreen extends Component {
         </View>
         <View style={styles.formContainer}>
           <SignupForm />
+          <TouchableOpacity style={styles.signInButtonContainer} onPress={() => this.props.navigation.navigate('SignIn')}>
+            <Text  style={styles.buttonText}>Already have an account? Sign in</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
+
+export default withNavigation(SignupScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -41,5 +50,15 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%'
+  },
+  signInButtonContainer:{
+    padding: 5
+  },
+  buttonText:{
+      color: '#fff',
+      textAlign: 'center',
+      fontWeight: '700',
+      fontSize: 16,
+      opacity: 0.7
   }
 });

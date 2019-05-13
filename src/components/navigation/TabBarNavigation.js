@@ -1,12 +1,29 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from 'react';
 
-import {createAppContainer} from 'react-navigation';
-import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator, createAppContainer} from 'react-navigation';
+import {signedInElements, signedOutElements, tabNavigatorConfig} from './TabBarConfig'
 
-import {tabNavigationElements, tabNavigatorConfig} from './TabBarConfig'
+export default class AppContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        authUser:  props.authUser
+    };
+    
+  }
 
+  componentWillReceiveProps = (props) => this.setState({authUser: props.authUser})
 
-const TabNavigator = createMaterialTopTabNavigator(tabNavigationElements, tabNavigatorConfig)
+  render() {
+    const TabNavigator = this.state.authUser ? createMaterialTopTabNavigator(signedInElements, tabNavigatorConfig) 
+                                             : createMaterialTopTabNavigator(signedOutElements, tabNavigatorConfig)
+                                    
+    const TabBar = createAppContainer(TabNavigator);
 
-export default AppContainer = createAppContainer(TabNavigator);
+    console.debug('in tab bar : ' + this.props.authUser)
+    return (
+        <TabBar />
+    );
+  }
+}
+    

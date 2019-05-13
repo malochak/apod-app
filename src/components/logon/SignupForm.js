@@ -82,8 +82,10 @@ const styles = StyleSheet.create({
         paddingVertical: 15
     },
     buttonText:{
-        color: '#fff',
-        textAlign: 'center',
-        fontWeight: '700'
-    }
+      color: '#fff',
+      textAlign: 'center',
+      fontWeight: '700',
+      fontSize: 16,
+      opacity: 0.7
+  }
   })

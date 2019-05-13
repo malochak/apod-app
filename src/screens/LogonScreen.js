@@ -7,12 +7,13 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Image,
+  TouchableOpacity
 } from 'react-native';
-import { createSwitchNavigator } from 'react-navigation';
+import { createSwitchNavigator, withNavigation } from 'react-navigation';
 
 import LoginForm from '../components/logon/LoginForm'
 
-export default class LogonScreen extends Component {
+class LogonScreen extends Component {
   render() {
     return (
       // @TODO tweak KeyboardAvoidingView to keep space beetwen end of form and keyboard
@@ -30,12 +31,17 @@ export default class LogonScreen extends Component {
 
         <View style={styles.formContainer}>
           <LoginForm />
+          <TouchableOpacity style={styles.signUpButtonContainer} onPress={() => this.props.navigation.navigate('SignUp')}>
+            <Text  style={styles.buttonText}>Don't have an account? Sign Up</Text>
+          </TouchableOpacity>
         </View>
 
-      </KeyboardAvoidingView >
+      </KeyboardAvoidingView>
     );
   }
 }
+
+export default withNavigation(LogonScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -62,6 +68,16 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    paddingBottom: 5
+  },   
+  signUpButtonContainer:{
+    padding: 5
+  },
+    buttonText:{
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: '700',
+    fontSize: 16,
+    opacity: 0.7
   }
+  
 });
