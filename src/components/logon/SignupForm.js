@@ -56,6 +56,14 @@ export default class SignupForm extends Component {
             value={this.state.password}
             placeholderTextColor='rgba(225,225,225,0.7)'
           />
+		  
+		  <TextInput
+            secureTextEntry
+            placeholder="Confirm Password"
+            autoCapitalize="none"
+            style={styles.input}
+            placeholderTextColor='rgba(225,225,225,0.7)'
+          />
 
           <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignUp}>
             <Text style={styles.buttonText}>Sign Up</Text>
