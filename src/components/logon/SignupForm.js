@@ -7,6 +7,7 @@ import { auth } from './authentication_logic/';
 const INITIAL_STATE = {
   email: '',
   password: '',
+  confirmPassword: '',
   error: null,
 };
 
@@ -21,16 +22,20 @@ export default class SignupForm extends Component {
 
     const {
       email,
-      password
+      password,
+      confirmPassword
     } = this.state
 
+    if(this.state.confirmPassword === this.state.password){
     auth.doCreateUserWithEmailAndPassword(email, password)
     .then(authUser => {
       this.setState( () => ({...INITIAL_STATE}))
     }).catch(error => {
       Alert.alert("ERROR")
     })
-
+  } else {
+    Alert.alert("Match password")
+  }
 }
 
   render() {
@@ -54,6 +59,16 @@ export default class SignupForm extends Component {
             style={styles.input}
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
+            placeholderTextColor='rgba(225,225,225,0.7)'
+          />
+
+          <TextInput
+            secureTextEntry
+            placeholder="Confirm Password"
+            autoCapitalize="none"
+            style={styles.input}
+            onChangeText={confirmPassword => this.setState({ confirmPassword })}
+            value={this.state.confirmPassword}
             placeholderTextColor='rgba(225,225,225,0.7)'
           />
 
