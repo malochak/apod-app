@@ -4,6 +4,7 @@ import ApodScreen from '../../screens/ApodScreen';
 import LogonScreen from '../../screens/LogonScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
+import addApodScreen from '../../screens/addApodScreen';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -46,6 +47,15 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
+    Camera: {
+      screen: addApodScreen,
+      navigationOptions: {
+        tabBarLabel: 'Camera',
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name='ios-camera' color={tintColor} size={24} />
+        )
+      }
+    },
   }
 
  export const tabNavigatorConfig = {
@@ -63,5 +73,5 @@ import { createSwitchNavigator} from 'react-navigation';
        fontSize: 10
        }
     },
-  
+
   }
