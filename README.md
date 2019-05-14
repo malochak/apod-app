@@ -1,3 +1,5 @@
+![Logo](https://raw.githubusercontent.com/pankeny/apod-app/master/assets/logo.png?token=AFTLNJWUBKTQOETMRZOB7AC44MKTM)
+
 # apod-app
 
 ### To start:
