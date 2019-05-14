@@ -105,7 +105,7 @@ export default class Apod extends Component {
             this.setState({ star: 'ios-star' });
         }
     } else {
-       Alert.alert("Log in to like an APOD.")
+       Alert.alert("Log in to add an APOD to favourites.")
     }
   }
 
