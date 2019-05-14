@@ -5,6 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,Sta
 import { auth } from './authentication_logic/';
 
 const INITIAL_STATE = {
+  nickname: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -21,6 +22,7 @@ export default class SignupForm extends Component {
     Alert.alert(this.state.email)
 
     const {
+      nickname,
       email,
       password,
       confirmPassword
@@ -41,6 +43,15 @@ export default class SignupForm extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+          <TextInput
+            placeholder="Nickname"
+            autoCapitalize="none"
+            style={styles.input}
+            onChangeText={nickname => this.setState({ nickname })}
+            value={this.state.nickname}
+            placeholderTextColor='rgba(225,225,225,0.7)'
+          />
 
           <TextInput
             placeholder="Email"
