@@ -36,8 +36,16 @@ export default class Apod extends Component {
         } else {
             this.setState({ heart: 'ios-heart-empty' })
         }
+        if (this.hasUserApodInFavourites()) {
+            this.setState({ star: 'ios-star' });
+        } else {
+            this.setState({ star: 'ios-star-outline' });
+        }
     } else {
-        this.setState({ heart: 'ios-heart-empty' });
+        this.setState({
+          heart: 'ios-heart-empty',
+          star: 'ios-star-outline'
+         });
     }
   }
 
@@ -83,6 +91,43 @@ export default class Apod extends Component {
      return exists;
   }
 
+  updateFavourites(date) {
+    if (this.isUserLoggedIn()) {
+        var userId = firebase.auth.currentUser.uid;
+        var favs = firebase.app.database().ref(`users/favourites/${userId}/${date}`);
+        if (this.hasUserApodInFavourites()) {
+            favs.remove();
+            this.setState({ star: 'ios-star-outline' })
+        } else {
+            favs.update({ 'title': this.props.title});
+            favs.update({ 'url': this.props.url});
+            favs.update({ 'date': this.props.date});
+            this.setState({ star: 'ios-star' });
+        }
+    } else {
+       Alert.alert("Log in to like an APOD.")
+    }
+  }
+
+  hasUserApodInFavourites() {
+     var exists = false;
+     if (this.isUserLoggedIn()) {
+        var userId = firebase.auth.currentUser.uid;
+        var date = this.props.date;
+        firebase.app.database().ref(`users/favourites/${userId}/${date}`).on('value', (snapshot) => {
+                if (snapshot.exists()) {
+                     exists = true;
+                     this.setState({ star: 'ios-star' });
+                }
+                else {
+                    exists = false;
+                    this.setState({ star: 'ios-star-outline' });
+                }
+        });
+     }
+     return exists;
+  }
+
   isUserLoggedIn() {
     return firebase.auth.currentUser != null;
   }
@@ -93,9 +138,7 @@ export default class Apod extends Component {
       <View style={styles.container}>
         <View style={styles.topGrid}>
           <Icon style={{ marginRight: 25 }} name={this.state.star} color='#92CBC5' size={28}
-            onPress={() => this.setState(prev => (
-              { star: this.state.star === 'ios-star-outline' ? 'ios-star' : 'ios-star-outline' }
-            ))} />
+            onPress={() => this.updateFavourites(this.props.date) } />
           <Text style={{ marginTop: 6, color: "#fff" }}> {this.props.date} </Text>
         </View>
         <Text style={styles.title}> {this.props.title} </Text>
@@ -110,9 +153,8 @@ export default class Apod extends Component {
         <View style={styles.infoContainer}>
 
           <View style={styles.grid}>
-            <Icon style={{ marginRight: 10 }} name={this.state.heart} color='#92CBC5' size={24} onPress={() => {
-              this.updateLikes(this.props.date)
-            }} />
+            <Icon style={{ marginRight: 10 }} name={this.state.heart} color='#92CBC5' size={24}
+             onPress={() =>  this.updateLikes(this.props.date) } />
 
             <Text style={{ marginLeft: 10, marginTop: 3, color: '#fff' }}> {this.props.likes} </Text>
           </View>
