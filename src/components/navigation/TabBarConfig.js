@@ -4,7 +4,7 @@ import ApodScreen from '../../screens/ApodScreen';
 import LogonScreen from '../../screens/LogonScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
-import TopApodsScreen from '../../screens/TopApodsScreen.js';
+import FavouritesScreen from '../../screens/FavouritesScreen.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -47,9 +47,9 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
-    TopApodsScreen: { screen: TopApodsScreen,
+    FavouritesScreen: { screen: FavouritesScreen,
         navigationOptions: {
-          tabBarLabel: 'Top APODS',
+          tabBarLabel: 'Favourites',
           tabBarIcon: ({tintColor}) => (
             <Icon name='ios-rocket' color={tintColor} size={24} />
           )
