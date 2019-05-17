@@ -115,7 +115,7 @@ export default class ApodScreen extends Component {
 
   render() {
     if (this.state.apodData == '') {
-      return <ActivityIndicator size="large" color="#2980b6"  />
+      return <ActivityIndicator size="large" color="#2980b6" style={styles.loadingCircle} />
     }
     return (
       <ScrollView style={styles.container} refreshControl={
@@ -141,5 +141,8 @@ export default class ApodScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#2c3e50"
+  },
+  loadingCircle: {
+    flex: 1,
   }
 })
