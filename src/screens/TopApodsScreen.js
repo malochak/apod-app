@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,Image,ScrollView,Alert } from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
-import TopApods from '../components/favs/TopApods.js';
+import TopApod from '../components/top/TopApod.js';
 
 export default class TopApodsScreen extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        apodData: ''
+        topApods: ''
       };
    }
 
   componentDidMount() {
-    var userId = firebase.auth.currentUser.uid;
+    var topApods = [];
     firebase.app.database().ref(`apods/`).orderByChild('likes').limitToLast(10).on('value', snapshot => {
+      snapshot.forEach(child => {
+             topApods.push(child.val());
+      });
+      topApods = topApods.reverse();
       this.setState({
-        apodData: snapshot.val()
+        topApods: topApods
       })
     });
   }
   
   
   render() {
-    if (this.state.apodData !== '') {
-        if (this.state.apodData != null) {
-            var keyNames = Object.keys(this.state.apodData);
+    if (this.state.topApods !== '') {
+        if (this.state.topApods != null) {
+            var keyNames = Object.keys(this.state.topApods);
             const items = [];
             
             keyNames.forEach(item => {
-                var favItem = this.state.apodData[item];
-                items.push(<TopApods
+                var favItem = this.state.topApods[item];
+                items.push(<TopApod
                     key = {favItem.date}
                     url = {favItem.url}
                     title = {favItem.title}

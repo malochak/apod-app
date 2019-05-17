@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,Image } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class TopApods extends Component {
+export default class TopApod extends Component {
   render() {
     return (
         <View>
@@ -10,9 +9,7 @@ export default class TopApods extends Component {
                 style={styles.image}
                 source={{uri: this.props.url}} />
             <Text> {this.props.title} </Text>
-            <Text> {this.props.likes} 
-            <Icon name='ios-heart'  size={17} />
-            </Text>
+            <Text> {this.props.likes} </Text>
         </View>
     );
   }
