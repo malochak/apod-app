@@ -23,7 +23,7 @@ class FavouritesScreen extends Component {
 
   navigateToApod(apodDate) {
     console.debug(apodDate)
-    this.props.navigation.navigate("Home")
+    this.props.navigation.navigate("Home", {date : {apodDate}})
   }
 
   render() {

@@ -19,7 +19,7 @@ import { createSwitchNavigator} from 'react-navigation';
 
   const HomeStack = createSwitchNavigator({
     Favourite: {screen: FavouritesScreen},
-    Home: {screen : LogonScreen},    
+    Home: {screen : ApodScreen},    
   })
 
   export const signedOutElements = {
