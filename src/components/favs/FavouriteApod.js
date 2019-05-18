@@ -5,15 +5,12 @@ export default class FavouriteApod extends Component {
   render() {
     return (
         <View style={styles.container}>
-
-
             <View style={styles.grid}>
                 <Image
                     style={styles.image}
                     source={{ uri: this.props.url }} />
                 <Text style={styles.title}> {this.props.title} </Text>
             </View>
-
         </View>
     );
   }
