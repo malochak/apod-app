@@ -37,7 +37,7 @@ export default class FavouritesScreen extends Component {
 
         return (
           <ScrollView style={styles.container} >
-            <Text style={styles.header}>Your favourite APOD</Text>
+            <Text style={styles.header}>Your favourite APODS</Text>
             {items}
           </ScrollView>
         );
@@ -67,10 +67,11 @@ const styles = StyleSheet.create({
   },
   header: {
     color: "#fff",
-    fontSize: 22,
+    fontSize: 20,
     textAlign: 'center',
     marginBottom: 20,
-    marginTop: 15
+    marginTop: 15,
+    color: '#92CBC5'
   },
   info: {
     color: "#fff",

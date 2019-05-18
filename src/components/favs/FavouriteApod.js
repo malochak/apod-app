@@ -26,20 +26,20 @@ const styles = StyleSheet.create({
     image: {
         height: 80,
         width: 100,
-        marginLeft: 20,
         marginRight: 20,
-        borderRadius: 4,
-        borderWidth: 3,
         flex:0.3,
-        borderColor: '#92CBC5',
+        marginBottom: 20,
     },
     grid: {
+        marginLeft: 20,
+        marginRight: 20,
         marginTop: 12,
         marginBottom: 12,
         alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
-
+        borderBottomWidth: 1,
+        borderBottomColor: '#92CBC5'
     },
     title: {
         color: "#fff",
