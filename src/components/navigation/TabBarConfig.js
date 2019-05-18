@@ -12,9 +12,15 @@ import { createSwitchNavigator} from 'react-navigation';
 
   const LoginStack = createSwitchNavigator({
     SignIn : {screen : LogonScreen},
-    SignUp : {screen : SignupScreen }
+    SignUp : {screen : SignupScreen },
   }
   )
+
+
+  const HomeStack = createSwitchNavigator({
+    Favourite: {screen: FavouritesScreen},
+    Home: {screen : LogonScreen},    
+  })
 
   export const signedOutElements = {
       Apod: { screen: props => <ApodScreen date='today' />,
@@ -48,7 +54,7 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
-    FavouritesScreen: { screen: FavouritesScreen,
+    FavouritesScreen: { screen: HomeStack,
         navigationOptions: {
           tabBarLabel: 'Favourites',
           tabBarIcon: ({tintColor}) => (
