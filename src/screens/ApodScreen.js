@@ -144,5 +144,6 @@ const styles = StyleSheet.create({
   },
   loadingCircle: {
     flex: 1,
+    backgroundColor: "#2c3e50"
   }
 })
