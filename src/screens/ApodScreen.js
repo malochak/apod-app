@@ -31,7 +31,12 @@ export default class ApodScreen extends Component {
 
   getNewApod(date) {
     {/* '2007-12-21' use that date to test horizontal img*/}
-    var apodDate = date == 'today' ? this.createTodaysDate() : this.getRandomApodDate();
+    var apodDate = date;
+    if (date === 'today') {
+        apodDate = this.createTodaysDate();
+    }else if (date === 'random') {
+        apodDate = this.getRandomApodDate();
+    }
     firebase.app.database().ref(`apods/${apodDate}`).on('value', (snapshot) => {
          if (snapshot.exists()) {
             this.setState({
@@ -48,7 +53,7 @@ export default class ApodScreen extends Component {
     axios.get('https://api.nasa.gov/planetary/apod', {
         params: {
           api_key: APOD_API_KEY,
-          date: apodDate
+          date: apodDate === 'today' ? '' : apodDate
         }
     })
     .then(( {data} ) =>  {
