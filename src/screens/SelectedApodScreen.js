@@ -3,7 +3,8 @@ import {
     StyleSheet,
     ScrollView,
     ActivityIndicator,
-    Button
+    Button,
+    BackHandler
 } from 'react-native';
 import {firebase} from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
@@ -18,10 +19,16 @@ export default class SelectedApodScreen extends Component {
 
     componentDidMount() {
         this.getNewApod(this.props.navigation.state.params.apodDate);
+        BackHandler.addEventListener('hardwareBackPress', this.goBackToFavs);
     }
 
-    goBackToFavs() {
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.goBackToFavs);
+    }
+
+    goBackToFavs = () => {
         this.props.navigation.navigate('Favourites');
+        return true;
     }
 
     getNewApod(date) {
