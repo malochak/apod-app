@@ -23,14 +23,14 @@ export default class TopApodsScreen extends Component {
       })
     });
   }
-  
-  
+
+
   render() {
     if (this.state.topApods !== '') {
         if (this.state.topApods != null) {
             var keyNames = Object.keys(this.state.topApods);
             const items = [];
-            
+
             keyNames.forEach(item => {
                 var favItem = this.state.topApods[item];
                 items.push(<TopApod
@@ -44,6 +44,7 @@ export default class TopApodsScreen extends Component {
 
             return (
               <ScrollView style={styles.container} >
+                <Text style={styles.header}>APODS Rank</Text>
                 {items}
               </ScrollView>
             );
@@ -65,5 +66,14 @@ export default class TopApodsScreen extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-    }
+    backgroundColor: '#2c3e50',
+    },
+  header: {
+    color: "#fff",
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: 20,
+    marginTop: 15,
+    color: '#92CBC5'
+  },
 })
