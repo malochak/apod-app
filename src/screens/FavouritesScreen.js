@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { createSwitchNavigator, withNavigation } from 'react-navigation';
 import { firebase } from '../components/logon/authentication_logic';
 import FavouriteApod from '../components/favs/FavouriteApod.js';
 
-class FavouritesScreen extends Component {
+export default class FavouritesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +21,7 @@ class FavouritesScreen extends Component {
   }
 
   navigateToApod(apodDate) {
-    this.props.navigation.navigate('SelectedApod', {apodDate});
+    this.props.navigation.navigate('SelectedFavsApod', {apodDate});
   }
 
   render() {
@@ -34,7 +33,9 @@ class FavouritesScreen extends Component {
         keyNames.forEach(item => {
           var favItem = this.state.favourites[item];
           items.push(
-          <TouchableOpacity onPress={ () => this.navigateToApod(favItem.date)} >
+          <TouchableOpacity
+              key={favItem.date}
+              onPress={ () => this.navigateToApod(favItem.date)} >
               <FavouriteApod
                 key={favItem.date}
                 url={favItem.url}
@@ -67,8 +68,6 @@ class FavouritesScreen extends Component {
     }
   }
 }
-
-export default withNavigation(FavouritesScreen)
 
 const styles = StyleSheet.create({
   container: {
