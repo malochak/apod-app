@@ -22,8 +22,7 @@ class FavouritesScreen extends Component {
   }
 
   navigateToApod(apodDate) {
-    console.debug(apodDate)
-    this.props.navigation.navigate('SelectedApod', {date : {apodDate}})
+    this.props.navigation.navigate('SelectedApod', {apodDate});
   }
 
   render() {
@@ -96,4 +95,4 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: '#2c3e50',
   }
-})
+});

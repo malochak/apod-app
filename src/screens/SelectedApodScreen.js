@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     ScrollView,
-    Text
+    ActivityIndicator
 } from 'react-native';
 import {firebase} from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
@@ -16,20 +16,11 @@ export default class SelectedApodScreen extends Component {
     }
 
     componentDidMount() {
-        console.debug(this.props.date)
-        console.debug(this.props)
-        console.debug('elo')
-        this.getNewApod(this.props.date);
+        this.getNewApod(this.props.navigation.state.params.apodDate);
     }
 
     getNewApod(date) {
-        var apodDate = date;
-        if (date === 'today') {
-            apodDate = this.createTodaysDate();
-        } else if (date === 'random') {
-            apodDate = this.getRandomApodDate();
-        }
-        firebase.app.database().ref(`apods/${apodDate}`).on('value', (snapshot) => {
+        firebase.app.database().ref(`apods/${date}`).on('value', (snapshot) => {
             this.setState({
                 apodData: snapshot.val()
             });
@@ -37,16 +28,28 @@ export default class SelectedApodScreen extends Component {
     }
 
     render() {
-        return (
-            <ScrollView style={styles.container}>
-                <Text>elo</Text>
-            </ScrollView>
-        );
+        if (this.state.apodData == '') {
+            return <ActivityIndicator size="large" color="#2980b6" style={styles.loadingCircle} />
+        }else {
+            return (
+                <ScrollView style={styles.container}>
+                    <Apod title={this.state.apodData.title} date={this.state.apodData.date}
+                          url={this.state.apodData.url}
+                          description={this.state.apodData.explanation}
+                          mediaType={this.state.apodData.media_type}
+                          likes={this.state.apodData.likes}/>
+                </ScrollView>
+            );
+        }
     }
 }
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: "#2c3e50"
+    },
+    loadingCircle: {
+        flex: 1,
         backgroundColor: "#2c3e50"
     }
 });
