@@ -14,13 +14,12 @@ import { createSwitchNavigator} from 'react-navigation';
   const LoginStack = createSwitchNavigator({
     SignIn : {screen : LogonScreen},
     SignUp : {screen : SignupScreen },
-  }
-  )
+  });
 
   const SelectedApodStack = createSwitchNavigator({
-    Favourite: {screen: FavouritesScreen},
+    Favourites: {screen: FavouritesScreen},
     SelectedApod: {screen : SelectedApodScreen},
-  })
+  });
 
   export const signedOutElements = {
       Apod: { screen: props => <ApodScreen date='today' />,
@@ -37,7 +36,7 @@ import { createSwitchNavigator} from 'react-navigation';
               <Icon name='ios-log-in' color={tintColor} size={24} />
             )
           }},
-    }
+    };
 
   export const signedInElements = {
     Apod: { screen: props => <ApodScreen date='today' />,
@@ -68,7 +67,7 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-rocket' color={tintColor} size={24} />
           )
         }},
-  }
+  };
 
  export const tabNavigatorConfig = {
     initialRouteName: 'Apod',
@@ -85,5 +84,4 @@ import { createSwitchNavigator} from 'react-navigation';
        fontSize: 10
        }
     },
-  
-  }
+ };
