@@ -6,6 +6,7 @@ import SignupScreen from '../../screens/SignupScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import FavouritesScreen from '../../screens/FavouritesScreen.js';
 import TopApodsScreen from '../../screens/TopApodsScreen.js';
+import SelectedApodScreen from '../../screens/SelectedApodScreen.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -16,10 +17,9 @@ import { createSwitchNavigator} from 'react-navigation';
   }
   )
 
-
-  const HomeStack = createSwitchNavigator({
+  const SelectedApodStack = createSwitchNavigator({
     Favourite: {screen: FavouritesScreen},
-    Home: {screen : ApodScreen},    
+    SelectedApod: {screen : SelectedApodScreen},
   })
 
   export const signedOutElements = {
@@ -54,7 +54,7 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
-    FavouritesScreen: { screen: HomeStack,
+    FavouritesScreen: { screen: SelectedApodStack,
         navigationOptions: {
           tabBarLabel: 'Favourites',
           tabBarIcon: ({tintColor}) => (

@@ -23,7 +23,7 @@ class FavouritesScreen extends Component {
 
   navigateToApod(apodDate) {
     console.debug(apodDate)
-    this.props.navigation.navigate("Home", {date : {apodDate}})
+    this.props.navigation.navigate('SelectedApod', {date : {apodDate}})
   }
 
   render() {
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#2c3e50"
   },
   header: {
-    color: "#fff",
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 20,
