@@ -14,6 +14,7 @@ import {
 import { firebase } from '../logon/authentication_logic';
 import ApodPic from './ApodPic.js';
 import ApodVideo from './ApodVideo.js';
+import ApodComments from './ApodComments.js';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Apod extends Component {
@@ -161,6 +162,7 @@ export default class Apod extends Component {
 
           <Text style={styles.description}>  {this.props.description} </Text>
         </View>
+            <ApodComments date={this.props.date}/>
       </View>
     );
   }
