@@ -57,7 +57,7 @@ export default class SelectedApodScreen extends Component {
                         style={styles.btnContainer}
                     >
                         <Icon name='ios-arrow-back' color={"#fff"} size={24} />
-                        <Text style={styles.btn}>Back to favourite</Text>
+                        <Text style={styles.btn}>Back to favourites</Text>
                     </TouchableOpacity>
 
 
