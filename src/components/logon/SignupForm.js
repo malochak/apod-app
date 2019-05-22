@@ -30,20 +30,15 @@ export default class SignupForm extends Component {
 
     if(confirmPassword === password){
       auth.doCreateUserWithEmailAndPassword(email, password)
-      .then(authUser => {
-        // authUser.updateProfile({displayName : nickname})
-
-        
+      .then(authUser => {        
           authUser.user.updateProfile({
             displayName: nickname,
           }).then(function() {
-            // Update successful.
             console.debug(authUser.user)
           }).catch(function(error) {
             console.debug('in update: ', error)
           });
           this.setState( () => ({...INITIAL_STATE}))
-
     
       }).catch(error => {
         console.debug(error)
