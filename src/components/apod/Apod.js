@@ -193,7 +193,10 @@ const styles = StyleSheet.create({
     color: "white"
   },
   description: {
-    color: 'white'
+    color: 'white',
+    textAlign: 'justify',
+    marginLeft: 6,
+    marginRight:6
   },
   title: {
     fontWeight: 'bold',
