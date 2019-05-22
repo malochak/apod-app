@@ -5,8 +5,8 @@ import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,Sta
 import { auth } from './authentication_logic/';
 
 const INITIAL_STATE = {
-  nickname: '',
   email: '',
+  nickname: '',
   password: '',
   confirmPassword: '',
   error: null,
@@ -22,27 +22,48 @@ export default class SignupForm extends Component {
     Alert.alert(this.state.email)
 
     const {
-      nickname,
       email,
+      nickname,
       password,
       confirmPassword
     } = this.state
 
-    if(this.state.confirmPassword === this.state.password){
-    auth.doCreateUserWithEmailAndPassword(email, password)
-    .then(authUser => {
-      this.setState( () => ({...INITIAL_STATE}))
-    }).catch(error => {
-      Alert.alert("ERROR")
-    })
+    if(confirmPassword === password){
+      auth.doCreateUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        // authUser.updateProfile({displayName : nickname})
+
+        
+          authUser.user.updateProfile({
+            displayName: nickname,
+          }).then(function() {
+            // Update successful.
+            console.debug(authUser.user)
+          }).catch(function(error) {
+            console.debug('in update: ', error)
+          });
+          this.setState( () => ({...INITIAL_STATE}))
+
+    
+      }).catch(error => {
+        console.debug(error)
+      })
   } else {
     Alert.alert("Match password")
   }
 }
-
   render() {
     return (
       <View style={styles.container}>
+
+          <TextInput
+            placeholder="Email"
+            autoCapitalize="none"
+            style={styles.input}
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+            placeholderTextColor='rgba(225,225,225,0.7)'
+          />
 
           <TextInput
             placeholder="Nickname"
@@ -50,16 +71,6 @@ export default class SignupForm extends Component {
             style={styles.input}
             onChangeText={nickname => this.setState({ nickname })}
             value={this.state.nickname}
-            placeholderTextColor='rgba(225,225,225,0.7)'
-          />
-
-          <TextInput
-            placeholder="Email"
-            autoCapitalize="none"
-            style={styles.input}
-
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
             placeholderTextColor='rgba(225,225,225,0.7)'
           />
 
