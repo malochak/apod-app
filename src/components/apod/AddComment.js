@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {firebase} from "../logon/authentication_logic";
 
-export default class ApodComments extends Component {
+export default class AddComment extends Component {
     constructor(props) {
         super(props);
         this.state = {
