@@ -50,13 +50,19 @@ export default class AddComment extends Component {
             var commentsDb = firebase.app.database().ref(`apods/${this.props.date}/comments`);
             commentsDb.push(commentToAdd);
         }
+        this.setState({
+            commentText: ''
+        })
+
     }
     render() {
         return (
             <View>
                 <Button title='Add comment' onPress={ () => this.setDisplayState()}/>
                 <View style={{display: this.state.displayCommentInput}}>
-                    <TextInput editable={true} onChangeText={commentText => this.setState({commentText})} />
+                    <TextInput editable={true}
+                               onChangeText={commentText => this.setState({commentText})}
+                               value={this.state.commentText}/>
                     <Button title='Add' onPress={ () => this.addComment()}/>
                 </View>
             </View>

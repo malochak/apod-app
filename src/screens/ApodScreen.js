@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#2c3e50"
   }
-})
+});
