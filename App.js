@@ -18,8 +18,6 @@ export default class App extends React.Component {
       user => user ? this.setState({authUser: true}) : this.setState({authUser : false})
     )
 
-  refreshAuth = () => this.setState({authUser : authUser, refresh: !this.state.refresh} )
-
   render() {
     console.debug('in app : ' + this.state.authUser)
     return (
