@@ -14,7 +14,9 @@ export default class ApodComments extends Component {
         super(props);
         this.state = {
             displayCommentInput: 'none',
-            comments: ''
+            comments: '',
+            icon:"ios-arrow-down",
+            msg:"Show comments",
         };
     }
 
@@ -36,11 +38,15 @@ export default class ApodComments extends Component {
     setDisplayState() {
         if (this.state.displayCommentInput === 'none') {
             this.setState({
-                displayCommentInput: 'flex'
+                displayCommentInput: 'flex',
+                msg:"Hide comments",
+                icon: "ios-arrow-up",
             });
         } else {
             this.setState({
-                displayCommentInput: 'none'
+                displayCommentInput: 'none',
+                msg:"Show comments",
+                icon: "ios-arrow-down",
             });
         }
     }
@@ -63,8 +69,8 @@ export default class ApodComments extends Component {
                         onPress={() => this.setDisplayState()}
                         style={styles.showComments}
                     >
-                        <Icon name='ios-arrow-down' color={"#92CBC5"} size={24} style={{marginRight:15}}/>
-                        <Text style={styles.btn}>Show comments</Text>
+                        <Icon name={this.state.icon} color={"#92CBC5"} size={24} style={{marginRight:15}}/>
+                        <Text style={styles.btn}>{this.state.msg}</Text>
                     </TouchableOpacity>
 
 

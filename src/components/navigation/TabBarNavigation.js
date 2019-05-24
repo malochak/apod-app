@@ -9,7 +9,7 @@ export default class AppContainer extends Component {
     this.state = {
         authUser:  props.authUser
     };
-    
+
   }
 
   componentWillReceiveProps = (props) => {
@@ -17,9 +17,9 @@ export default class AppContainer extends Component {
   }
 
   render() {
-    const TabNavigator = this.state.authUser ? createMaterialTopTabNavigator(signedInElements, tabNavigatorConfig) 
+    const TabNavigator = this.state.authUser ? createMaterialTopTabNavigator(signedInElements, tabNavigatorConfig)
                                              : createMaterialTopTabNavigator(signedOutElements, tabNavigatorConfig)
-                                  
+
     const TabBar = createAppContainer(TabNavigator);
 
     return (
@@ -27,4 +27,3 @@ export default class AppContainer extends Component {
     );
   }
 }
-    
