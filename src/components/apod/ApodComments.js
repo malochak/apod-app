@@ -26,11 +26,14 @@ export default class ApodComments extends Component {
 
     componentDidMount() {
         this.setState({
-            displayCommentInput: 'none'
+            displayCommentInput: 'none',
+            comments: '',
+            icon:"ios-arrow-down",
+            msg:"Show comments",
         });
         firebase.app.database().ref(`apods/${this.props.date}/comments`).on('value', (snapshot) => {
             this.setState({
-                comments: snapshot.val()
+                comments: snapshot.val() != null ? snapshot.val() : []
             });
         });
     }
