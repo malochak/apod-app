@@ -6,14 +6,17 @@ import {
     Button, ActivityIndicator, TouchableOpacity,
 } from 'react-native';
 import {firebase} from "../logon/authentication_logic";
-import Comment from "./Comment.js";
+import Comment from "./Comment.js"
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export default class ApodComments extends Component {
     constructor(props) {
         super(props);
         this.state = {
             displayCommentInput: 'none',
-            comments: ''
+            comments: '',
+            icon:"ios-arrow-down",
+            msg:"Show comments",
         };
     }
 
@@ -23,11 +26,14 @@ export default class ApodComments extends Component {
 
     componentDidMount() {
         this.setState({
-            displayCommentInput: 'none'
+            displayCommentInput: 'none',
+            comments: '',
+            icon:"ios-arrow-down",
+            msg:"Show comments",
         });
         firebase.app.database().ref(`apods/${this.props.date}/comments`).on('value', (snapshot) => {
             this.setState({
-                comments: snapshot.val()
+                comments: snapshot.val() != null ? snapshot.val() : []
             });
         });
     }
@@ -35,11 +41,15 @@ export default class ApodComments extends Component {
     setDisplayState() {
         if (this.state.displayCommentInput === 'none') {
             this.setState({
-                displayCommentInput: 'flex'
+                displayCommentInput: 'flex',
+                msg:"Hide comments",
+                icon: "ios-arrow-up",
             });
         } else {
             this.setState({
-                displayCommentInput: 'none'
+                displayCommentInput: 'none',
+                msg:"Show comments",
+                icon: "ios-arrow-down",
             });
         }
     }
@@ -57,8 +67,17 @@ export default class ApodComments extends Component {
             });
 
             return (
-                <View>
-                    <Button title='Show comments' onPress={ () => this.setDisplayState()}/>
+                <View style={styles.commentSection}>
+                    <TouchableOpacity
+                        onPress={() => this.setDisplayState()}
+                        style={styles.showComments}
+                    >
+                        <Icon name={this.state.icon} color={"#92CBC5"} size={24} style={{marginRight:15}}/>
+                        <Text style={styles.btn}>{this.state.msg}</Text>
+                    </TouchableOpacity>
+
+
+
                     <View style={{display: this.state.displayCommentInput}}>
                         {comments}
                     </View>
@@ -82,5 +101,21 @@ const styles = StyleSheet.create({
     loadingCircle: {
         flex: 1,
         backgroundColor: "#2c3e50"
+    },
+    showComments:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems:"center",
+        marginTop: 20,
+        marginLeft: 20
+    },
+    btn:{
+        fontSize:20,
+        color:"#92CBC5"
+    },
+    commentSection:{
+        marginBottom:30
     }
+
 });

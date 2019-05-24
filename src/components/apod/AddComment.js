@@ -4,8 +4,11 @@ import {
     TextInput,
     StyleSheet,
     Button,
+    TouchableOpacity,
+    Text
 } from 'react-native';
 import {firebase} from "../logon/authentication_logic";
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export default class AddComment extends Component {
     constructor(props) {
@@ -58,7 +61,14 @@ export default class AddComment extends Component {
     render() {
         return (
             <View>
-                <Button title='Add comment' onPress={ () => this.setDisplayState()}/>
+                <TouchableOpacity
+                    onPress={() => this.setDisplayState()}
+                    style={styles.addComment}
+                >
+                    <Icon name='ios-add' color={"#92CBC5"} size={29} style={{ marginRight: 15, marginTop:3 }} />
+                    <Text style={styles.btn}> Add comment</Text>
+                </TouchableOpacity>
+
                 <View style={{display: this.state.displayCommentInput}}>
                     <TextInput editable={true}
                                onChangeText={commentText => this.setState({commentText})}
@@ -76,5 +86,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         height: 250
-    }
+    },
+    addComment: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: "center",
+        marginTop: 20,
+        marginLeft: 20
+    },
+    btn: {
+        fontSize: 20,
+        color: "#92CBC5"
+    },
 });
