@@ -159,4 +159,16 @@ const styles = StyleSheet.create({
     commentSection: {
         marginBottom: 30
     },
+    commentInput: {
+        marginTop: 30,
+        height: 50,
+        paddingLeft: 5,
+        marginLeft: 8,
+        marginRight: 8,
+        borderRadius: 4,
+        borderWidth: 3,
+        borderColor: '#92CBC5',
+    },
+    addComment: {},
+    addButton: {}
 });
