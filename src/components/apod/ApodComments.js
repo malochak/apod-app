@@ -99,12 +99,7 @@ export default class ApodComments extends Component {
                     </TouchableOpacity>
 
 
-
-                    <View style={{ display: this.state.displayCommentInput }}>
-                        {comments}
-                    </View>
-
-                    <View style={{ display: this.state.displayCommentInput, flexDirection: "row", flex: 1, marginTop: 30, }}>
+                    <View style={{ display: this.state.displayCommentInput, flexDirection: "row", flex: 1, marginTop: 20, marginBottom:20 }}>
 
                         <TextInput editable={true}
                             onChangeText={commentText => this.setState({ commentText })}
@@ -114,15 +109,20 @@ export default class ApodComments extends Component {
                             placeholderTextColor="#fff"
                         />
 
-                            <TouchableOpacity
-                                onPress={() => this.addComment()}
-                                style={styles.addComment}
-                            >
-                                <Icon name='md-send' color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
-                            </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.addComment()}
+                            style={styles.addComment}
+                        >
+                            <Icon name='md-send' color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
+                        </TouchableOpacity>
 
 
                     </View>
+                    <View style={{ display: this.state.displayCommentInput }}>
+                        {comments}
+                    </View>
+
+
                 </View>
             );
         } else {

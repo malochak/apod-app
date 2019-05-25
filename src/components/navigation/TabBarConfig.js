@@ -23,7 +23,7 @@ import { createSwitchNavigator} from 'react-navigation';
 
   export const signedOutElements = {
     Apod: {
-      screen: props => <ApodScreen date='2018-04-05' />,
+      screen: props => <ApodScreen date='today' />,
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({tintColor}) => (
@@ -41,7 +41,7 @@ import { createSwitchNavigator} from 'react-navigation';
 
   export const signedInElements = {
     Apod: {
-      screen: props => <ApodScreen date='2018-04-05' />,
+      screen: props => <ApodScreen date='today' />,
       navigationOptions: {
         tabBarLabel: 'Home',
         tabBarIcon: ({tintColor}) => (
