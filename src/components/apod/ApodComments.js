@@ -1,11 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
     StyleSheet,
-    Button, ActivityIndicator, TouchableOpacity,
+    Button,
+    ActivityIndicator,
+    TouchableOpacity,
+    TextInput,
 } from 'react-native';
-import {firebase} from "../logon/authentication_logic";
+import { firebase } from "../logon/authentication_logic";
 import Comment from "./Comment.js"
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -15,8 +18,9 @@ export default class ApodComments extends Component {
         this.state = {
             displayCommentInput: 'none',
             comments: '',
-            icon:"ios-arrow-down",
-            msg:"Show comments",
+            icon: "ios-arrow-down",
+            msg: "Show comments",
+            commentText: '',
         };
     }
 
@@ -28,8 +32,8 @@ export default class ApodComments extends Component {
         this.setState({
             displayCommentInput: 'none',
             comments: '',
-            icon:"ios-arrow-down",
-            msg:"Show comments",
+            icon: "ios-arrow-down",
+            msg: "Show comments",
         });
         firebase.app.database().ref(`apods/${this.props.date}/comments`).on('value', (snapshot) => {
             this.setState({
@@ -42,16 +46,34 @@ export default class ApodComments extends Component {
         if (this.state.displayCommentInput === 'none') {
             this.setState({
                 displayCommentInput: 'flex',
-                msg:"Hide comments",
+                msg: "Hide comments",
                 icon: "ios-arrow-up",
             });
         } else {
             this.setState({
                 displayCommentInput: 'none',
-                msg:"Show comments",
+                msg: "Show comments",
                 icon: "ios-arrow-down",
             });
         }
+    }
+
+    addComment() {
+        var comment = this.state.commentText;
+        if (comment.trim().length > 0) {
+            //@TODO change to user nickname
+            //date user for testing - 2018-04-05
+
+            comment = comment.trim();
+            var user = firebase.auth.currentUser.email;
+            var commentToAdd = { user: user, comment: comment };
+            var commentsDb = firebase.app.database().ref(`apods/${this.props.date}/comments`);
+            commentsDb.push(commentToAdd);
+        }
+        this.setState({
+            commentText: ''
+        })
+
     }
 
     render() {
@@ -62,7 +84,7 @@ export default class ApodComments extends Component {
             keyNames.forEach(item => {
                 var comment = this.state.comments[item];
                 comments.push(
-                   <Comment user={comment.user} comment={comment.comment} />
+                    <Comment user={comment.user} comment={comment.comment} />
                 )
             });
 
@@ -72,18 +94,38 @@ export default class ApodComments extends Component {
                         onPress={() => this.setDisplayState()}
                         style={styles.showComments}
                     >
-                        <Icon name={this.state.icon} color={"#92CBC5"} size={24} style={{marginRight:15}}/>
+                        <Icon name={this.state.icon} color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
                         <Text style={styles.btn}>{this.state.msg}</Text>
                     </TouchableOpacity>
 
 
 
-                    <View style={{display: this.state.displayCommentInput}}>
+                    <View style={{ display: this.state.displayCommentInput }}>
                         {comments}
+                    </View>
+
+                    <View style={{ display: this.state.displayCommentInput }}>
+
+                        <TextInput editable={true}
+                            onChangeText={commentText => this.setState({ commentText })}
+                            value={this.state.commentText}
+                            style={styles.commentInput}
+                            placeholder="Share your opinion"
+                            placeholderTextColor="#fff"
+                        />
+
+                        <TouchableOpacity
+                            onPress={() => this.addComment()}
+                            style={styles.addComment}
+                        ><Text style={styles.addButton}>Add</Text>
+                            <Icon name='md-send' color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
+                        </TouchableOpacity>
+
+
                     </View>
                 </View>
             );
-        }else {
+        } else {
             return (
                 <ActivityIndicator size="large" color="#2980b6" style={styles.loadingCircle} />
             )
@@ -102,20 +144,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#2c3e50"
     },
-    showComments:{
+    showComments: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems:"center",
+        alignItems: "center",
         marginTop: 20,
         marginLeft: 20
     },
-    btn:{
-        fontSize:20,
-        color:"#92CBC5"
+    btn: {
+        fontSize: 20,
+        color: "#92CBC5"
     },
-    commentSection:{
-        marginBottom:30
-    }
-
+    commentSection: {
+        marginBottom: 30
+    },
 });
