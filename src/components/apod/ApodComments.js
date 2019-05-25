@@ -104,7 +104,7 @@ export default class ApodComments extends Component {
                         {comments}
                     </View>
 
-                    <View style={{ display: this.state.displayCommentInput }}>
+                    <View style={{ display: this.state.displayCommentInput, flexDirection: "row", flex: 1, marginTop: 30, }}>
 
                         <TextInput editable={true}
                             onChangeText={commentText => this.setState({ commentText })}
@@ -114,12 +114,12 @@ export default class ApodComments extends Component {
                             placeholderTextColor="#fff"
                         />
 
-                        <TouchableOpacity
-                            onPress={() => this.addComment()}
-                            style={styles.addComment}
-                        ><Text style={styles.addButton}>Add</Text>
-                            <Icon name='md-send' color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.addComment()}
+                                style={styles.addComment}
+                            >
+                                <Icon name='md-send' color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
+                            </TouchableOpacity>
 
 
                     </View>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         color: "#92CBC5"
     },
     commentSection: {
-        marginBottom: 30
+        marginBottom: 30,
     },
     commentInput: {
         marginTop: 30,
@@ -165,10 +165,13 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         marginLeft: 8,
         marginRight: 8,
-        borderRadius: 4,
-        borderWidth: 3,
+        borderBottomWidth: 3,
         borderColor: '#92CBC5',
+        flex:0.9,
+        color:"#fff"
     },
-    addComment: {},
-    addButton: {}
+    addComment: {
+        marginTop:50,
+        flex:0.1
+    }
 });
