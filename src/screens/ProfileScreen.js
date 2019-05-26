@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { auth } from '../components/logon/authentication_logic/';
-
 export default class ProfileScreen extends Component {
   constructor(props) {
     super(props);

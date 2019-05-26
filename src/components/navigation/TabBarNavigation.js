@@ -9,21 +9,21 @@ export default class AppContainer extends Component {
     this.state = {
         authUser:  props.authUser
     };
-    
+
   }
 
-  componentWillReceiveProps = (props) => this.setState({authUser: props.authUser})
+  componentWillReceiveProps = (props) => {
+    this.setState({authUser: props.authUser})
+  }
 
   render() {
-    const TabNavigator = this.state.authUser ? createMaterialTopTabNavigator(signedInElements, tabNavigatorConfig) 
+    const TabNavigator = this.state.authUser ? createMaterialTopTabNavigator(signedInElements, tabNavigatorConfig)
                                              : createMaterialTopTabNavigator(signedOutElements, tabNavigatorConfig)
-                                    
+
     const TabBar = createAppContainer(TabNavigator);
 
-    console.debug('in tab bar : ' + this.props.authUser)
     return (
         <TabBar />
     );
   }
 }
-    

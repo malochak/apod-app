@@ -4,19 +4,32 @@ import ApodScreen from '../../screens/ApodScreen';
 import LogonScreen from '../../screens/LogonScreen';
 import SignupScreen from '../../screens/SignupScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
-import addApodScreen from '../../screens/addApodScreen';
-
+import FavouritesScreen from '../../screens/FavouritesScreen.js';
+import TopApodsScreen from '../../screens/TopApodsScreen.js';
+import SelectedApodScreen from '../../screens/SelectedApodScreen.js';
+import addApodScreen from '../../screens/addApodScreen'
+import AddApod from '../../screens/AddApod'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
 
   const LoginStack = createSwitchNavigator({
     SignIn : {screen : LogonScreen},
-    SignUp : {screen : SignupScreen }
-  }
-  )
+    SignUp : {screen : SignupScreen },
+  });
+
+  const SelectedApodStack = createSwitchNavigator({
+    Favourites: {screen: FavouritesScreen},
+    SelectedApod: {screen : SelectedApodScreen},
+  });
+
+  const CameraStack = createSwitchNavigator({
+    AddApod: { screen: AddApod },
+    Camera: { screen: addApodScreen },
+  })
 
   export const signedOutElements = {
-      Apod: { screen: props => <ApodScreen date='today' />,
+    Apod: {
+      screen: props => <ApodScreen date='today' />,
         navigationOptions: {
           tabBarLabel: 'Home',
           tabBarIcon: ({tintColor}) => (
@@ -30,10 +43,11 @@ import { createSwitchNavigator} from 'react-navigation';
               <Icon name='ios-log-in' color={tintColor} size={24} />
             )
           }},
-    }
+    };
 
   export const signedInElements = {
-    Apod: { screen: props => <ApodScreen date='today' />,
+    Apod: {
+      screen: props => <ApodScreen date='today' />,
       navigationOptions: {
         tabBarLabel: 'Home',
         tabBarIcon: ({tintColor}) => (
@@ -47,16 +61,30 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
+    FavouritesScreen: { screen: SelectedApodStack,
+        navigationOptions: {
+          tabBarLabel: 'Favourites',
+          tabBarIcon: ({tintColor}) => (
+            <Icon name='ios-flame' color={tintColor} size={24} />
+          )
+        }},
+    TopApodsScreen: { screen: TopApodsScreen,
+        navigationOptions: {
+          tabBarLabel: 'Top Apods',
+          tabBarIcon: ({tintColor}) => (
+            <Icon name='ios-rocket' color={tintColor} size={24} />
+          )
+        }},
     Camera: {
-      screen: addApodScreen,
+      screen: CameraStack,
       navigationOptions: {
-        tabBarLabel: 'Camera',
+        tabBarLabel: 'Add APOD',
         tabBarIcon: ({ tintColor }) => (
           <Icon name='ios-camera' color={tintColor} size={24} />
         )
       }
     },
-  }
+  };
 
  export const tabNavigatorConfig = {
     initialRouteName: 'Apod',
@@ -73,5 +101,4 @@ import { createSwitchNavigator} from 'react-navigation';
        fontSize: 10
        }
     },
-
-  }
+ };

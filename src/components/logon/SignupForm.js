@@ -6,7 +6,9 @@ import { auth } from './authentication_logic/';
 
 const INITIAL_STATE = {
   email: '',
+  nickname: '',
   password: '',
+  confirmPassword: '',
   error: null,
 };
 
@@ -21,18 +23,30 @@ export default class SignupForm extends Component {
 
     const {
       email,
-      password
+      nickname,
+      password,
+      confirmPassword
     } = this.state
 
-    auth.doCreateUserWithEmailAndPassword(email, password)
-    .then(authUser => {
-      this.setState( () => ({...INITIAL_STATE}))
-    }).catch(error => {
-      Alert.alert("ERROR")
-    })
-
+    if(confirmPassword === password){
+      auth.doCreateUserWithEmailAndPassword(email, password)
+      .then(authUser => {        
+          authUser.user.updateProfile({
+            displayName: nickname,
+          }).then(function() {
+            console.debug(authUser.user)
+          }).catch(function(error) {
+            console.debug('in update: ', error)
+          });
+          this.setState( () => ({...INITIAL_STATE}))
+    
+      }).catch(error => {
+        console.debug(error)
+      })
+  } else {
+    Alert.alert("Match password")
+  }
 }
-
   render() {
     return (
       <View style={styles.container}>
@@ -41,9 +55,17 @@ export default class SignupForm extends Component {
             placeholder="Email"
             autoCapitalize="none"
             style={styles.input}
-
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
+            placeholderTextColor='rgba(225,225,225,0.7)'
+          />
+
+          <TextInput
+            placeholder="Nickname"
+            autoCapitalize="none"
+            style={styles.input}
+            onChangeText={nickname => this.setState({ nickname })}
+            value={this.state.nickname}
             placeholderTextColor='rgba(225,225,225,0.7)'
           />
 
@@ -54,6 +76,16 @@ export default class SignupForm extends Component {
             style={styles.input}
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
+            placeholderTextColor='rgba(225,225,225,0.7)'
+          />
+
+          <TextInput
+            secureTextEntry
+            placeholder="Confirm Password"
+            autoCapitalize="none"
+            style={styles.input}
+            onChangeText={confirmPassword => this.setState({ confirmPassword })}
+            value={this.state.confirmPassword}
             placeholderTextColor='rgba(225,225,225,0.7)'
           />
 
