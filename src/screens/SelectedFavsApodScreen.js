@@ -12,7 +12,7 @@ import { firebase } from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class SelectedApodScreen extends Component {
+export default class SelectedFavsApodScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +32,7 @@ export default class SelectedApodScreen extends Component {
     goBackToFavs = () => {
         this.props.navigation.navigate('Favourites');
         return true;
-    }
+    };
 
     getNewApod(date) {
         firebase.app.database().ref(`apods/${date}`).on('value', (snapshot) => {
