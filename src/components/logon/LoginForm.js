@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { Platform, View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
 import { auth } from './authentication_logic/';
 import { withNavigation } from 'react-navigation';
 
@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 
 export default class LoginForm extends Component {
 
-  state = { email: '', password: '', errorMessage: null, TextInputValue: '',
+  state = { email: '', password: '', errorMessage: null,
   ErrorStatus : true, }
 
   onEnterText = (email) =>{
@@ -77,7 +77,6 @@ export default class LoginForm extends Component {
           value={this.state.email} 
           onChangeText={email => this.onEnterText(email)}
 
-          
         />
 
         <TextInput
