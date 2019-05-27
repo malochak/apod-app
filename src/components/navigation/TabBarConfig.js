@@ -6,8 +6,8 @@ import SignupScreen from '../../screens/SignupScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 import FavouritesScreen from '../../screens/FavouritesScreen.js';
 import TopApodsScreen from '../../screens/TopApodsScreen.js';
-import SelectedApodScreen from '../../screens/SelectedApodScreen.js';
-import AddAppodScreen from '../../screens/AddApodScreen';
+import SelectedFavsApodScreen from '../../screens/SelectedFavsApodScreen.js';
+import SelectedTopApodScreen from '../../screens/SelectedTopApodScreen.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -17,9 +17,14 @@ import { createSwitchNavigator} from 'react-navigation';
     SignUp : {screen : SignupScreen },
   });
 
-  const SelectedApodStack = createSwitchNavigator({
+  const FavouritesStack = createSwitchNavigator({
     Favourites: {screen: FavouritesScreen},
-    SelectedApod: {screen : SelectedApodScreen},
+    SelectedFavsApod: {screen : SelectedFavsApodScreen},
+  });
+
+  const TopApodsStack = createSwitchNavigator({
+    TopApods: {screen: TopApodsScreen},
+    SelectedTopApod: {screen : SelectedTopApodScreen},
   });
 
   export const signedOutElements = {
@@ -63,7 +68,7 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-flame' color={tintColor} size={24} />
           )
         }},
-      TopApodsScreen: { screen: TopApodsScreen,
+    TopApodsScreen: { screen: TopApodsStack,
         navigationOptions: {
           tabBarLabel: 'Top Apods',
           tabBarIcon: ({tintColor}) => (

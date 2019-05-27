@@ -14,15 +14,37 @@ const INITIAL_STATE = {
 
 export default class LoginForm extends Component {
 
-  state = { email: '', password: '', errorMessage: null }
+  state = { email: '', password: '', errorMessage: null,
+  ErrorStatus : true, }
+
+  onEnterText = (email) =>{
+   
+    if(email.trim() != 0){
+     this.setState({email : email, ErrorStatus : true}) ;
+   }else if(email.trim() == 0){
+       this.setState({email : email, ErrorStatus : true}) ;
+   }
+ }
+
+ onEnterPassword = (password) =>{
+   
+  if(password.trim() != 0){
+   this.setState({password : password, ErrorStatus : true}) ;
+ }else if(password.trim() == 0){
+     this.setState({password : password, ErrorStatus : true}) ;
+ }
+}
+
 
   handleLogin = (event) => {
-    Alert.alert("login handling")
+ 
 
     const {
       email,
       password,
     } = this.state;
+
+   
 
     auth.doSignInWithEmailAndPassword(email, password)
     .then(() => {
@@ -30,26 +52,31 @@ export default class LoginForm extends Component {
       Alert.alert("You are logged in")
     })
     .catch( error => {
-      Alert.alert("Error")
+      this.setState({ErrorStatus : false}) ;
+     
     })
-
   }
 
   render() {
 
     return (
       <View style={styles.container}>
-        {this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage}
-          </Text>}
+
+        { this.state.ErrorStatus == false ? (
+             <Text style={styles.errorMessage}>
+              Email or Password is incorrect
+             </Text>
+            ) : null  }
+
 
         <TextInput
           style={styles.input}
           autoCapitalize="none"
           placeholder="Email"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
+          onChangeText={email => this.setState({ email })} 
+          value={this.state.email} 
+          onChangeText={email => this.onEnterText(email)}
+
         />
 
         <TextInput
@@ -59,8 +86,10 @@ export default class LoginForm extends Component {
           placeholder="Password"
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
-        />
+          onChangeText={password => this.onEnterPassword(password)}
 
+        />
+         
         <TouchableOpacity style={styles.signInButtonContainer} onPress={this.handleLogin}>
           <Text  style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
@@ -94,5 +123,11 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 16,
         opacity: 0.7
+    },
+    errorMessage: {
+      fontSize: 15,
+      color:"red",
+      padding: 5,
+      marginBottom: 5,
     }
   })

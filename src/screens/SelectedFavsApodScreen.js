@@ -3,16 +3,15 @@ import {
     StyleSheet,
     ScrollView,
     ActivityIndicator,
-    Button,
     BackHandler,
-    View,
-    TouchableOpacity,Text
+    TouchableOpacity,
+    Text
 } from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class SelectedApodScreen extends Component {
+export default class SelectedFavsApodScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +31,7 @@ export default class SelectedApodScreen extends Component {
     goBackToFavs = () => {
         this.props.navigation.navigate('Favourites');
         return true;
-    }
+    };
 
     getNewApod(date) {
         firebase.app.database().ref(`apods/${date}`).on('value', (snapshot) => {
@@ -48,10 +47,6 @@ export default class SelectedApodScreen extends Component {
         } else {
             return (
                 <ScrollView style={styles.container}>
-                    {/* <View style={styles.button}>
-                        <Button title='<  Favourite' style={styles.backButton} onPress={() => this.goBackToFavs()} />
-                    </View> */}
-
                     <TouchableOpacity
                         onPress={() => this.goBackToFavs()}
                         style={styles.btnContainer}
@@ -59,8 +54,6 @@ export default class SelectedApodScreen extends Component {
                         <Icon name='ios-arrow-back' color={"#fff"} size={24} />
                         <Text style={styles.btn}>Back to favourites</Text>
                     </TouchableOpacity>
-
-
 
                     <Apod title={this.state.apodData.title} date={this.state.apodData.date}
                         url={this.state.apodData.url}
@@ -88,7 +81,6 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     btn:{
-
         color:"#fff",
         flex: 1,
         fontSize:20,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,Image,ScrollView,Alert } from 'react-native';
+import {Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import TopApod from '../components/top/TopApod.js';
 
@@ -24,6 +24,9 @@ export default class TopApodsScreen extends Component {
     });
   }
 
+  navigateToApod(apodDate) {
+    this.props.navigation.navigate('SelectedTopApod', {apodDate});
+  }
 
   render() {
     if (this.state.topApods !== '') {
@@ -32,14 +35,18 @@ export default class TopApodsScreen extends Component {
             const items = [];
 
             keyNames.forEach(item => {
-                var favItem = this.state.topApods[item];
-                items.push(<TopApod
-                    key = {favItem.date}
-                    url = {favItem.url}
-                    title = {favItem.title}
-                    date = {favItem.date}
-                    likes = {favItem.likes}
-                             />)
+                var topApodItem = this.state.topApods[item];
+                items.push(
+                  <TouchableOpacity
+                      key = {topApodItem.date}
+                      onPress={ () => this.navigateToApod(topApodItem.date)} >
+                    <TopApod
+                        key = {topApodItem.date}
+                        url = {topApodItem.url}
+                        title = {topApodItem.title}
+                        date = {topApodItem.date}
+                        likes = {topApodItem.likes} />
+                  </TouchableOpacity>)
             });
 
             return (
@@ -69,7 +76,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#2c3e50',
     },
   header: {
-    color: "#fff",
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 20,

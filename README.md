@@ -1,5 +1,5 @@
 # apod-app
-![Logo](https://raw.githubusercontent.com/pankeny/apod-app/master/assets/logo.png?token=AFTLNJWUBKTQOETMRZOB7AC44MKTM)
+![Logo](https://raw.githubusercontent.com/pankeny/apod-app/apd057/assets/logo.png?token=AFTLNJRP2TYPORFZMMF5EB246WA4Q)
 
 This app is a mobile equivalent for NASA web APOD service. An APOD stands for Astronomy Picture Of the Day.
 It provides pictures in the field of astronomy with an explanation on what is on the picture.
