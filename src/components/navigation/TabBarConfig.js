@@ -8,6 +8,7 @@ import FavouritesScreen from '../../screens/FavouritesScreen.js';
 import TopApodsScreen from '../../screens/TopApodsScreen.js';
 import SelectedFavsApodScreen from '../../screens/SelectedFavsApodScreen.js';
 import SelectedTopApodScreen from '../../screens/SelectedTopApodScreen.js';
+import AddApodScreen from '../../screens/AddApodScreen.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -54,14 +55,14 @@ import { createSwitchNavigator} from 'react-navigation';
           <Icon name='ios-home' color={tintColor} size={24} />
         )
      }},
-     AddAppod: { screen: AddAppodScreen,
+     AddAppod: { screen: AddApodScreen,
       navigationOptions: {
         tabBarLabel: 'Add Appod',
         tabBarIcon: ({tintColor}) => (
           <Icon name='ios-add-circle' color={tintColor} size={24} />
         )
       }},
-    FavouritesScreen: { screen: SelectedApodStack,
+    FavouritesScreen: { screen: FavouritesStack,
         navigationOptions: {
           tabBarLabel: 'Favourites',
           tabBarIcon: ({tintColor}) => (
