@@ -16,7 +16,7 @@ class FavouritesScreen extends Component {
     var userId = firebase.auth.currentUser.uid;
     firebase.app.database().ref(`users/favourites/${userId}/`).on('value', snapshot => {
       this.setState({
-        favourites: snapshot.val()
+        favourites: snapshot.val() != null ? snapshot.val() : []
       })
     });
   }
@@ -27,22 +27,21 @@ class FavouritesScreen extends Component {
 
   render() {
     if (this.state.favourites !== '') {
-      if (this.state.favourites != null) {
-        var keyNames = Object.keys(this.state.favourites);
-        const items = [];
+      var keyNames = Object.keys(this.state.favourites);
+      const items = [];
 
-        keyNames.forEach(item => {
-          var favItem = this.state.favourites[item];
-          items.push(
-          <TouchableOpacity onPress={ () => this.navigateToApod(favItem.date)} >
+      keyNames.forEach(item => {
+        var favItem = this.state.favourites[item];
+        items.push(
+            <TouchableOpacity onPress={ () => this.navigateToApod(favItem.date)} >
               <FavouriteApod
-                key={favItem.date}
-                url={favItem.url}
-                title={favItem.title}
-                date={favItem.date} />
-          </TouchableOpacity>)
-        });
-
+                  key={favItem.date}
+                  url={favItem.url}
+                  title={favItem.title}
+                  date={favItem.date} />
+            </TouchableOpacity>)
+      });
+      if (items.length > 0) {
         return (
           <ScrollView style={styles.container} >
             <Text style={styles.header}>Your favourite APODS</Text>
