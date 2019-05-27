@@ -3,10 +3,9 @@ import {
     StyleSheet,
     ScrollView,
     ActivityIndicator,
-    Button,
     BackHandler,
-    View,
-    TouchableOpacity,Text
+    TouchableOpacity,
+    Text
 } from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
@@ -48,10 +47,6 @@ export default class SelectedFavsApodScreen extends Component {
         } else {
             return (
                 <ScrollView style={styles.container}>
-                    {/* <View style={styles.button}>
-                        <Button title='<  Favourite' style={styles.backButton} onPress={() => this.goBackToFavs()} />
-                    </View> */}
-
                     <TouchableOpacity
                         onPress={() => this.goBackToFavs()}
                         style={styles.btnContainer}
@@ -59,8 +54,6 @@ export default class SelectedFavsApodScreen extends Component {
                         <Icon name='ios-arrow-back' color={"#fff"} size={24} />
                         <Text style={styles.btn}>Back to favourites</Text>
                     </TouchableOpacity>
-
-
 
                     <Apod title={this.state.apodData.title} date={this.state.apodData.date}
                         url={this.state.apodData.url}
@@ -88,7 +81,6 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     btn:{
-
         color:"#fff",
         flex: 1,
         fontSize:20,
