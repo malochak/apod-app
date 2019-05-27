@@ -7,6 +7,7 @@ import ProfileScreen from '../../screens/ProfileScreen';
 import FavouritesScreen from '../../screens/FavouritesScreen.js';
 import TopApodsScreen from '../../screens/TopApodsScreen.js';
 import SelectedApodScreen from '../../screens/SelectedApodScreen.js';
+import AddAppodScreen from '../../screens/AddApodScreen';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -47,14 +48,14 @@ import { createSwitchNavigator} from 'react-navigation';
         tabBarIcon: ({tintColor}) => (
           <Icon name='ios-home' color={tintColor} size={24} />
         )
+     }},
+     AddAppod: { screen: AddAppodScreen,
+      navigationOptions: {
+        tabBarLabel: 'Add Appod',
+        tabBarIcon: ({tintColor}) => (
+          <Icon name='ios-add-circle' color={tintColor} size={24} />
+        )
       }},
-    Profile: { screen: ProfileScreen,
-        navigationOptions: {
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({tintColor}) => (
-            <Icon name='ios-contact' color={tintColor} size={24} />
-          )
-        }},
     FavouritesScreen: { screen: SelectedApodStack,
         navigationOptions: {
           tabBarLabel: 'Favourites',
@@ -62,11 +63,18 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-flame' color={tintColor} size={24} />
           )
         }},
-    TopApodsScreen: { screen: TopApodsScreen,
+      TopApodsScreen: { screen: TopApodsScreen,
         navigationOptions: {
           tabBarLabel: 'Top Apods',
           tabBarIcon: ({tintColor}) => (
             <Icon name='ios-rocket' color={tintColor} size={24} />
+          )
+        }},
+      Profile: { screen: ProfileScreen,
+        navigationOptions: {
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({tintColor}) => (
+            <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
   };
