@@ -32,7 +32,9 @@ export default class FavouritesScreen extends Component {
       keyNames.forEach(item => {
         var favItem = this.state.favourites[item];
         items.push(
-            <TouchableOpacity onPress={ () => this.navigateToApod(favItem.date)} >
+            <TouchableOpacity
+                key = {favItem.date}
+                onPress={ () => this.navigateToApod(favItem.date)} >
               <FavouriteApod
                   key={favItem.date}
                   url={favItem.url}

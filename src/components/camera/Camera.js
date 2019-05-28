@@ -16,12 +16,11 @@ export default class Camera2 extends Component {
     }
 
     takePicture() {
-        console.debug('pic')
-        console.debug(this.state.photo)
         this.camera.takePictureAsync({ skipProcessing: true }).then((data) => {
             this.setState({
                 photo: data.uri
             });
+            this.props.navigation.state.params.putPhoto(data.uri);
         });
     }
 
