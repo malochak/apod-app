@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, View, StyleSheet, TextInput, TouchableOpacity, Text} from 'react-native';
+import {KeyboardAvoidingView, View, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
+import { firebase } from '../components/logon/authentication_logic';
 
 export default class AddApodScreen extends Component {
     state = {title: '', errorMessage: null, photo: ''};
@@ -12,9 +13,35 @@ export default class AddApodScreen extends Component {
     putPhoto(photo) {
         console.debug(photo);
         this.props.navigation.navigate('AddApod');
+        this.uploadPhoto(photo);
+    }
+
+    async uploadPhoto(photo) {
+        var metadata = {
+            contentType: 'image/jpeg',
+        }
+        const response = await fetch(photo);
+        const blob = await response.blob();
+
+        var ref = firebase.app.storage().ref('img.jpg');
+        ref.put(blob, metadata);
+
+    }
+
+    pepe() {
+        console.debug('hey');
+        this.setState({title: 'elo', photo: this.state.photo});
     }
 
     render() {
+        var image;
+        console.debug('hehe')
+        console.debug(this.props.photo)
+        if (this.props.photo !== '') {
+            image = <Image source={{uri: this.props.photo}}></Image>
+        }else {
+            image = <Text>Add image</Text>
+        }
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
@@ -43,6 +70,8 @@ export default class AddApodScreen extends Component {
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()}>
                             <Text style={styles.buttonText}>Take new photo</Text>
                         </TouchableOpacity>
+                        <Button title='Upload' style={styles.buttonContainer} onPress={() => this.pepe()}/>
+                        {image}
                     </View>
                 </View>
 
