@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, View, StyleSheet} from 'react-native';
-import ImageData from '../components/storage/ImageData';
+import ImageData from '../components/camera/ImageData';
 
 export default class AddApodScreen extends Component {
 
@@ -9,7 +9,7 @@ export default class AddApodScreen extends Component {
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
             
             <View style={styles.imageDataContainer}>
-             <ImageData  />
+             <ImageData navigation={this.props.navigation} />
             </View>
 
  

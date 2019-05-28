@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet} from 'react-native';
-
+import { RNCamera } from 'react-native-camera';
 
 const INITIAL_STATE = {
   title: '',
   errorMessage: null
-}
+};
 
 export default class ImageData extends Component {
   
-  state = { title: '', errorMessage: null }
+  state = { title: '', errorMessage: null };
 
-  handlingLater = () =>{
-    console.debug('in ImageData handling method')
+  launchCamera() {
+    console.debug('in ImageData handling method');
+
+      this.props.navigation.navigate('Camera');
+
   }
 
   render() {
@@ -35,10 +38,10 @@ export default class ImageData extends Component {
             onChangeText={description => this.setState({ description })}
             value={this.state.description}
           />
-          <TouchableOpacity style={styles.buttonContainer} onPress={this.handlingLater()}>
+          <TouchableOpacity style={styles.buttonContainer} >
             <Text  style={styles.buttonText}>Choose photo</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={this.handlingLater()}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={ () => this.launchCamera()}>
             <Text  style={styles.buttonText}>Take new photo</Text>
           </TouchableOpacity>
         </View>

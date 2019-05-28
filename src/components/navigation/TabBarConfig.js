@@ -9,6 +9,7 @@ import TopApodsScreen from '../../screens/TopApodsScreen.js';
 import SelectedFavsApodScreen from '../../screens/SelectedFavsApodScreen.js';
 import SelectedTopApodScreen from '../../screens/SelectedTopApodScreen.js';
 import AddApodScreen from '../../screens/AddApodScreen.js';
+import Camera from '../../components/camera/Camera.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -26,6 +27,11 @@ import { createSwitchNavigator} from 'react-navigation';
   const TopApodsStack = createSwitchNavigator({
     TopApods: {screen: TopApodsScreen},
     SelectedTopApod: {screen : SelectedTopApodScreen},
+  });
+
+  const AddApodStack = createSwitchNavigator({
+    AddApod: {screen: AddApodScreen},
+    Camera: {screen : Camera},
   });
 
   export const signedOutElements = {
@@ -55,7 +61,7 @@ import { createSwitchNavigator} from 'react-navigation';
           <Icon name='ios-home' color={tintColor} size={24} />
         )
      }},
-     AddAppod: { screen: AddApodScreen,
+     AddAppod: { screen: AddApodStack,
       navigationOptions: {
         tabBarLabel: 'Add Appod',
         tabBarIcon: ({tintColor}) => (
