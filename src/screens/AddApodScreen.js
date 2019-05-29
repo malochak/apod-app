@@ -11,29 +11,31 @@ export default class AddApodScreen extends Component {
     }
 
     putPhoto(photo) {
-        console.debug(photo);
         this.props.navigation.navigate('AddApod');
         this.uploadPhoto(photo);
     }
 
     async uploadPhoto(photo) {
-        console.debug('blddddd');
-
-        var metadata = {
-            contentType: 'image/jpeg',
-        }
-        const response = await fetch(photo.uri);
-        console.debug('xexe');
-
-        const blob = await response.blob();
-
-        console.debug('blob');
-
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function() {
+                reject(new TypeError('Network request failed'));
+            };
+            xhr.responseType = 'blob';
+            xhr.open('GET', photo, true);
+            xhr.send(null);
+        });
+        var ref = firebase.app.storage().ref('img.jpg');
+        ref.put(blob);
     }
 
     pepe() {
-        console.debug('hey');
-        this.setState({title: 'elo', photo: this.state.photo});
+
+
+
     }
 
     render() {

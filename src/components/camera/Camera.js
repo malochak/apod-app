@@ -17,22 +17,7 @@ export default class Camera2 extends Component {
 
     async takePicture() {
         this.camera.takePictureAsync({ skipProcessing: true }).then(async (data) => {
-            console.debug(data.uri)
-            // this.props.navigation.state.params.putPhoto(data.uri);
-            const blob = await new Promise((resolve, reject) => {
-                const xhr = new XMLHttpRequest();
-                xhr.onload = function() {
-                    resolve(xhr.response);
-                };
-                xhr.onerror = function() {
-                    reject(new TypeError('Network request failed'));
-                };
-                xhr.responseType = 'blob';
-                xhr.open('GET', data.uri, true);
-                xhr.send(null);
-            });
-            console.debug('after')
-            console.debug(blob)
+            this.props.navigation.state.params.putPhoto(data.uri);
         });
     }
 
