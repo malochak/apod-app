@@ -11,16 +11,28 @@ export default class Camera2 extends Component {
     };
 
     async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);;
         this.setState({ hasCameraPermission: status === 'granted' });
     }
 
-    takePicture() {
-        this.camera.takePictureAsync({ skipProcessing: true }).then((data) => {
-            this.setState({
-                photo: data.uri
+    async takePicture() {
+        this.camera.takePictureAsync({ skipProcessing: true }).then(async (data) => {
+            console.debug(data.uri)
+            // this.props.navigation.state.params.putPhoto(data.uri);
+            const blob = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function() {
+                    resolve(xhr.response);
+                };
+                xhr.onerror = function() {
+                    reject(new TypeError('Network request failed'));
+                };
+                xhr.responseType = 'blob';
+                xhr.open('GET', data.uri, true);
+                xhr.send(null);
             });
-            this.props.navigation.state.params.putPhoto(data.uri);
+            console.debug('after')
+            console.debug(blob)
         });
     }
 

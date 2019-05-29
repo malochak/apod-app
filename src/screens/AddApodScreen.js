@@ -17,14 +17,17 @@ export default class AddApodScreen extends Component {
     }
 
     async uploadPhoto(photo) {
+        console.debug('blddddd');
+
         var metadata = {
             contentType: 'image/jpeg',
         }
-        const response = await fetch(photo);
+        const response = await fetch(photo.uri);
+        console.debug('xexe');
+
         const blob = await response.blob();
 
-        var ref = firebase.app.storage().ref('img.jpg');
-        ref.put(blob, metadata);
+        console.debug('blob');
 
     }
 
@@ -35,7 +38,6 @@ export default class AddApodScreen extends Component {
 
     render() {
         var image;
-        console.debug('hehe')
         console.debug(this.props.photo)
         if (this.props.photo !== '') {
             image = <Image source={{uri: this.props.photo}}></Image>
