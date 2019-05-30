@@ -6,16 +6,25 @@ export default class AddApodScreen extends Component {
     state = {title: '', errorMessage: null, photo: ''};
 
     launchCamera() {
-        console.debug('in ImageData handling method');
         this.props.navigation.navigate('Camera', {putPhoto: this.putPhoto.bind(this)});
     }
 
     putPhoto(photo) {
         this.props.navigation.navigate('AddApod');
-        this.uploadPhoto(photo);
+        //should change the state with photo.....
+        // this.uploadApod(photo);
     }
 
-    async uploadPhoto(photo) {
+    async uploadApod(photo) {
+        var userApodRef = firebase.app.database().ref('userApods/');
+        var userApod = {title: 'title', explanation: 'explanation', date: '2099-01-01', likes: 0};
+        userApodRef.push(userApod).then(res => {
+            var userApodId = res.getKey();
+            this.uploadPhoto(photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
+        });
+    }
+
+    async uploadPhoto(photo, imgName, userApodRef) {
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.onload = function() {
@@ -28,8 +37,12 @@ export default class AddApodScreen extends Component {
             xhr.open('GET', photo, true);
             xhr.send(null);
         });
-        var ref = firebase.app.storage().ref('img.jpg');
-        ref.put(blob);
+        var ref = firebase.app.storage().ref(`${imgName}.jpg`);
+        ref.put(blob).then(res => {
+            ref.getDownloadURL().then(function(url) {
+                userApodRef.update({ 'url': url});
+            })
+        });
     }
 
     pepe() {
