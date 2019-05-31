@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Camera2 extends Component {
     state = {
@@ -34,7 +35,7 @@ export default class Camera2 extends Component {
                             ref={ (ref) => {this.camera = ref} }>
                         <View
                             style={{
-                                flex: 1,
+                                flex: 2,
                                 backgroundColor: 'transparent',
                                 flexDirection: 'row',
                             }}>
@@ -43,6 +44,8 @@ export default class Camera2 extends Component {
                                     flex: 0.1,
                                     alignSelf: 'flex-end',
                                     alignItems: 'center',
+                                    marginBottom: 20,
+                                    marginLeft:50
                                 }}
                                 onPress={() => {
                                     this.setState({
@@ -52,12 +55,17 @@ export default class Camera2 extends Component {
                                     });
                                 }}>
                                 <Ionicons
-                                    name="md-reverse-camera"
+                                    name="ios-reverse-camera"
                                     color="white"
-                                    size={30}
+                                    size={45}
                                 />
                             </TouchableOpacity>
-                            <Button title='Take a picture' style={{height: 50}} onPress={() => {this.takePicture()}}/>
+                            <TouchableOpacity
+                                onPress={() => {this.takePicture()}}
+                                style={styles.photoButton}
+                            >
+                                <Icon name='ios-radio-button-off' color={"#fff"} size={85} />
+                            </TouchableOpacity>
                         </View>
                     </Camera>
                 </View>
@@ -65,3 +73,12 @@ export default class Camera2 extends Component {
         }
     }
 }
+const styles = StyleSheet.create({
+
+    photoButton: {
+        justifyContent: 'center',
+        flex: 0.7,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+    }
+});
