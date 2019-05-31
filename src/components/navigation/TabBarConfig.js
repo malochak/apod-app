@@ -8,6 +8,8 @@ import FavouritesScreen from '../../screens/FavouritesScreen.js';
 import TopApodsScreen from '../../screens/TopApodsScreen.js';
 import SelectedFavsApodScreen from '../../screens/SelectedFavsApodScreen.js';
 import SelectedTopApodScreen from '../../screens/SelectedTopApodScreen.js';
+import AddApodScreen from '../../screens/AddApodScreen.js';
+import Camera from '../../components/camera/Camera.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -25,6 +27,11 @@ import { createSwitchNavigator} from 'react-navigation';
   const TopApodsStack = createSwitchNavigator({
     TopApods: {screen: TopApodsScreen},
     SelectedTopApod: {screen : SelectedTopApodScreen},
+  });
+
+  const AddApodStack = createSwitchNavigator({
+    AddApod: {screen: AddApodScreen},
+    Camera: {screen : Camera},
   });
 
   export const signedOutElements = {
@@ -53,14 +60,14 @@ import { createSwitchNavigator} from 'react-navigation';
         tabBarIcon: ({tintColor}) => (
           <Icon name='ios-home' color={tintColor} size={24} />
         )
+     }},
+     AddAppod: { screen: AddApodStack,
+      navigationOptions: {
+        tabBarLabel: 'Add Appod',
+        tabBarIcon: ({tintColor}) => (
+          <Icon name='ios-add-circle' color={tintColor} size={24} />
+        )
       }},
-    Profile: { screen: ProfileScreen,
-        navigationOptions: {
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({tintColor}) => (
-            <Icon name='ios-contact' color={tintColor} size={24} />
-          )
-        }},
     FavouritesScreen: { screen: FavouritesStack,
         navigationOptions: {
           tabBarLabel: 'Favourites',
@@ -73,6 +80,13 @@ import { createSwitchNavigator} from 'react-navigation';
           tabBarLabel: 'Top Apods',
           tabBarIcon: ({tintColor}) => (
             <Icon name='ios-rocket' color={tintColor} size={24} />
+          )
+        }},
+      Profile: { screen: ProfileScreen,
+        navigationOptions: {
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({tintColor}) => (
+            <Icon name='ios-contact' color={tintColor} size={24} />
           )
         }},
   };

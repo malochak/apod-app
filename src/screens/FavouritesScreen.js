@@ -33,7 +33,9 @@ export default class FavouritesScreen extends Component {
         var favItem = this.state.favourites[item];
         items.push(
             <TouchableOpacity
-                key={favItem.date}
+
+                key = {favItem.date}
+
                 onPress={ () => this.navigateToApod(favItem.date)} >
               <FavouriteApod
                   key={favItem.date}
