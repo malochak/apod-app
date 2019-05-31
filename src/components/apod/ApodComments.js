@@ -84,7 +84,7 @@ export default class ApodComments extends Component {
             keyNames.forEach(item => {
                 var comment = this.state.comments[item];
                 comments.push(
-                    <Comment user={comment.user} comment={comment.comment} />
+                    <Comment key={item} user={comment.user} comment={comment.comment} />
                 )
             });
 

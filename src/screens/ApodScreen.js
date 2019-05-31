@@ -30,10 +30,9 @@ export default class ApodScreen extends Component {
   }
 
   getNewApod(date) {
-    {/* '2007-12-21' use that date to test horizontal img*/}
     var apodDate = date;
     if (date === 'today') {
-        apodDate = this.createTodaysDate();
+        apodDate = this.getNewestApodDate();
     }else if (date === 'random') {
         apodDate = this.getRandomApodDate();
     }
@@ -76,14 +75,17 @@ export default class ApodScreen extends Component {
     });
   }
 
-  createTodaysDate() {
-    var now = new Date();
-    var year = now.getFullYear().toString();
-    var month = (0+(now.getMonth()+1).toString()).slice(-2);
-    var day = (0+(now.getDate().toString())).slice(-2);
-
-    return year + "-" + month + "-" + day;
+  getNewestApodDate() {
+      axios.get('https://api.nasa.gov/planetary/apod', {
+          params: {
+              api_key: APOD_API_KEY,
+          }
+      })
+      .then(( {data} ) =>  {
+          return data.date;
+      })
   }
+
 
   getRandomApodDate() {
     //an algorithm from https://apod.nasa.gov/apod/random_apod.html
@@ -116,7 +118,7 @@ export default class ApodScreen extends Component {
     this.setState({refreshing: true});
     this.getNewApod('random');
     this.setState({refreshing: false});
-  }
+  };
 
   render() {
     if (this.state.apodData == '') {
