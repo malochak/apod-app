@@ -12,7 +12,6 @@ export default class ImageData extends Component {
   state = { title: '', errorMessage: null };
 
   launchCamera() {
-    console.debug('in ImageData handling method');
 
       this.props.navigation.navigate('Camera');
 
