@@ -74,7 +74,6 @@ export default class SignupForm extends Component {
 				authUser.user.updateProfile({
 				  displayName: nickname,
 				}).then(function() {
-				  console.debug(authUser.user)
 				}).catch(function(error) {
 				  console.debug('in update: ', error)
 				});

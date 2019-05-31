@@ -2,17 +2,51 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, View, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 
+
+const INIT = {
+    title : 'elo',
+    errorMessage: null,
+    photo: 'ttt'
+}
+
 export default class AddApodScreen extends Component {
-    state = {title: '', errorMessage: null, photo: ''};
+
+    constructor(props) {
+        super(props);
+        this.state = { 
+            title: '', 
+            errorMessage: null, 
+            photo: ''
+        };
+    }
 
     launchCamera() {
-        this.props.navigation.navigate('Camera', {putPhoto: this.putPhoto.bind(this)});
+        this.props.navigation.navigate('Camera');
     }
 
     putPhoto(photo) {
-        this.props.navigation.navigate('AddApod');
+        this.props.navigation.navigate('AddApod', {photo});
         //should change the state with photo.....
         // this.uploadApod(photo);
+        this.setState(...INIT)
+        
+    }
+
+    componentDidMount() {
+        this.getPhoto(this.props.navigation.state.params)
+    }
+
+    getPhoto = (param) => {
+
+        if(param != undefined){
+        this.setState({title : 'test',
+                    errorMessage: null,
+                    photo : param.data.uri} )
+            console.debug(this.state)
+        }else {
+            console.debug('equals undef')
+        }
+
     }
 
     async uploadApod(photo) {
@@ -23,6 +57,8 @@ export default class AddApodScreen extends Component {
             this.uploadPhoto(photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
         });
     }
+        
+    changeState = (state) => this.setState({title : 'test', errorMessage : null, photo : state})
 
     async uploadPhoto(photo, imgName, userApodRef) {
         const blob = await new Promise((resolve, reject) => {
@@ -53,9 +89,10 @@ export default class AddApodScreen extends Component {
 
     render() {
         var image;
-        console.debug(this.props.photo)
-        if (this.props.photo !== '') {
-            image = <Image source={{uri: this.props.photo}}></Image>
+        console.debug(this.state)
+        console.debug(this.state.photo)
+        if (this.state.photo !== '') {
+            image = <Text> {this.state.photo} </Text>
         }else {
             image = <Text>Add image</Text>
         }

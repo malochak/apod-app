@@ -19,7 +19,6 @@ export default class App extends React.Component {
     )
 
   render() {
-    console.debug('in app : ' + this.state.authUser)
     return (
       <SafeAreaView style={styles.container}>
         <AppContainer authUser = {this.state.authUser}/>
