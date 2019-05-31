@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import { auth } from '../components/logon/authentication_logic/';
+import UserEmail from '../components/profile/UserEmail'
 import ChangePassword from '../components/profile/ChangePassword'
 export default class ProfileScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nickname: '',
+      nickname: '',      
+      user: firebase.auth.currentUser.email,
     };
   }
  
@@ -35,9 +37,7 @@ export default class ProfileScreen extends Component {
                 style='logo'
                 source={require('../../assets/logo.png')}
           />
-          
-          
-        
+          <UserEmail style={styles.greetTextView} user ={this.state.user}/>
         </View>
 
         <Text style={styles.passTextView}>Change Your Password</Text>
@@ -45,11 +45,11 @@ export default class ProfileScreen extends Component {
         <TouchableOpacity style={styles.submitContainer} onPress={this.handleChangePassword}>
             <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignOut}>
             <Text style={styles.buttonText}>SignOut</Text>
         </TouchableOpacity>
       </View>
-      
     );
   }
 }
