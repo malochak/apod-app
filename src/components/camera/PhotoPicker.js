@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import CameraRollPicker from 'react-native-camera-roll-picker';
 
 export default class PhotoPicker extends Component {

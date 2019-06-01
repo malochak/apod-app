@@ -29,7 +29,6 @@ export default class AddApodScreen extends Component {
     }
 
     putPhoto(data) {
-        console.debug('aas ', data)
         this.props.navigation.navigate('AddApod', {
             data:data,
             title:this.state.title,
