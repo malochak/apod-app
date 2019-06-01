@@ -11,6 +11,7 @@ import SelectedTopApodScreen from '../../screens/SelectedTopApodScreen.js';
 import AddApodScreen from '../../screens/AddApodScreen.js';
 import Camera from '../../components/camera/Camera.js';
 import UserApodScreen from '../../screens/UserApodScreen.js';
+import PhotoPicker from '../../components/camera/PhotoPicker.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -33,6 +34,7 @@ import { createSwitchNavigator} from 'react-navigation';
   const AddApodStack = createSwitchNavigator({
     AddApod: {screen: AddApodScreen},
     Camera: {screen : Camera},
+    PhotoPicker: {screen: PhotoPicker}
   });
 
   export const signedOutElements = {
