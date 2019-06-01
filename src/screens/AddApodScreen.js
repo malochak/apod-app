@@ -11,7 +11,10 @@ export default class AddApodScreen extends Component {
             title: '',
             description: '',
             errorMessage: null,
-            photo: ''
+            photo: '',
+			TitleErrorStatus : true,
+            DescriptionErrorStatus : true,
+            PhotoErrorStatus : true,
         };
     }
 
@@ -60,17 +63,34 @@ export default class AddApodScreen extends Component {
     };
 
     async uploadApod() {
-        var userApodRef = firebase.app.database().ref('userApods/');
-        var userApod = {
-            title: this.state.title,
-            explanation: this.state.description,
-            date: this.createTodaysDate(),
-            author: firebase.auth.currentUser.email,
-            likes: 0};
-        userApodRef.push(userApod).then(res => {
-            var userApodId = res.getKey();
-            this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
-        });
+        const {
+            title,
+            description,
+            photo,
+          } = this.state
+
+        if(title.length >= 4 ){
+            if(description.length >= 10){
+                if(photo !== ''){
+                    var userApodRef = firebase.app.database().ref('userApods/');
+                    var userApod = {
+                        title: this.state.title,
+                        explanation: this.state.description,
+                        date: this.createTodaysDate(),
+                        author: firebase.auth.currentUser.email,
+                        likes: 0};
+                        userApodRef.push(userApod).then(res => {
+                        var userApodId = res.getKey();
+                        this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
+                    });
+                } else {this.setState({PhotoErrorStatus : false}) ;}
+
+            } else {this.setState({DescriptionErrorStatus : false}) ;
+                    if(photo === '' ){this.setState({PhotoErrorStatus : false}) ;}}
+                
+         } else {  this.setState({TitleErrorStatus : false}) ;
+            if(description.length < 5){this.setState({DescriptionErrorStatus : false}) ;}
+      }
     }
 
     async uploadPhoto(photo, imgName, userApodRef) {
@@ -94,6 +114,24 @@ export default class AddApodScreen extends Component {
         });
         this.refreshScreen();
     }
+	
+	onEnterTitle = (title) =>{
+   
+        if(title.replace(/^\s+|\s+$/g, "") != 0){
+         this.setState({title : title,   TitleErrorStatus : true}) ;
+       }else if(title.replace(/^\s+|\s+$/g, "") == 0){
+           this.setState({title : title,  TitleErrorStatus : true}) ;
+       }
+      }
+
+      onEnterDescription= (description) =>{
+   
+        if(description.replace(/^\s+|\s+$/g, "") != 0){
+         this.setState({description : description,   DescriptionErrorStatus : true}) ;
+       }else if(description.replace(/^\s+|\s+$/g, "") == 0){
+           this.setState({description : description,  DescriptionErrorStatus : true}) ;
+       }
+      }
 
     render() {
         var image;
@@ -106,6 +144,13 @@ export default class AddApodScreen extends Component {
                 <ScrollView style={styles.imageDataContainer}>
                     <View style={styles.content}>
                         <Text style={styles.header}>Add your own APOD</Text>
+						
+						{ this.state.TitleErrorStatus == false ? (
+                            <Text style={styles.errorMessage}>
+                                Title must be at least 4 characters long
+                            </Text>
+                            ) : null  }
+							
                         <TextInput
                             style={styles.input}
                             autoCapitalize="none"
@@ -113,7 +158,15 @@ export default class AddApodScreen extends Component {
                             placeholderTextColor="#fff"
                             onChangeText={title => this.setState({title})}
                             value={this.state.title}
+							onChangeText={title => this.onEnterTitle(title)}
                         />
+						
+						{ this.state.DescriptionErrorStatus == false ? (
+                            <Text style={styles.errorMessage}>
+                                Description must be at least 10 characters long
+                            </Text>
+                            ) : null  }
+							
                         <TextInput
                             style={styles.inputField}
                             autoCapitalize="none"
@@ -124,21 +177,26 @@ export default class AddApodScreen extends Component {
                             placeholder="Description"
                             onChangeText={description => this.setState({description})}
                             value={this.state.description}
+							onChangeText={description=> this.onEnterDescription(description)}
                         />
-                        <TouchableOpacity style={styles.buttonContainer}>
+						  { this.state.PhotoErrorStatus == false ? (
+                            <Text style={styles.errorMessage}>
+                              Pick photo before upload
+                            </Text>
+                            ) : null  }
+                        <TouchableOpacity style={styles.buttonContainer } onPress={() =>this.setState({PhotoErrorStatus : true})}>
                             <Text style={styles.buttonText}>Choose photo</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()} >
                             <Text style={styles.buttonText}>Take new photo</Text>
                         </TouchableOpacity>
                         <View style={styles.imageStyle}>{image}</View>
-                        <TouchableOpacity style={styles.uploadContainer} onPress={() => this.uploadApod()}>
+                        <TouchableOpacity style={styles.uploadContainer} onPress={() => this.uploadApod()} >
                             <Icon style={styles.photo}name='ios-cloud-upload' color={"#fff"} size={40} />
                             <Text style={styles.upload}> Upload </Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-
 
             </KeyboardAvoidingView>
         );
@@ -211,6 +269,10 @@ const styles = StyleSheet.create({
     photo:{
         marginTop:10,
         marginRight: 10
-    }
-
+    },
+	  errorMessage: {
+        marginTop:10,
+        fontSize: 15,
+        color:"red",
+      }
 });
