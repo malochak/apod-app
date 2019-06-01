@@ -9,12 +9,13 @@ export default class AppContainer extends Component {
     this.state = {
         authUser:  props.authUser
     };
-
   }
 
-  componentWillReceiveProps = (props) => {
-    this.setState({authUser: props.authUser})
-  }
+
+
+  componentWillReceiveProps = (props) => this.setState({authUser: props.authUser})
+
+
 
   render() {
     const TabNavigator = this.state.authUser ? createMaterialTopTabNavigator(signedInElements, tabNavigatorConfig)

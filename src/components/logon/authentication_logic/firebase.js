@@ -5,7 +5,7 @@ import {FIREBASE_API_KEY,
         FIREBASE_DATABASE_URL,
         FIREBASE_PROJECT_ID,
         FIREBASE_STORAGE_BUCKET,
-        FIRBASE_MESSAGING_SENDER_ID,
+        FIREBASE_MESSAGING_SENDER_ID,
         FIREBASE_APP_ID} from 'react-native-dotenv'
 
 const firebaseConfig = {
@@ -14,7 +14,7 @@ const firebaseConfig = {
   databaseURL: FIREBASE_DATABASE_URL,
   projectId: FIREBASE_PROJECT_ID,
   storageBucket: FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: FIRBASE_MESSAGING_SENDER_ID,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
   appId: FIREBASE_APP_ID,
 };
 

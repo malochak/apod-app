@@ -16,9 +16,9 @@ export default class Camera2 extends Component {
         this.setState({ hasCameraPermission: status === 'granted' });
     }
 
-    async takePicture() {
-        this.camera.takePictureAsync({ skipProcessing: true }).then(async (data) => {
-            this.props.navigation.state.params.putPhoto(data.uri);
+    takePicture() {
+        this.camera.takePictureAsync({ skipProcessing: true }).then((data) => {
+            this.props.navigation.state.params.putPhoto(data);
         });
     }
 

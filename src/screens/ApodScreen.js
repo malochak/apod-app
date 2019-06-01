@@ -65,7 +65,6 @@ export default class ApodScreen extends Component {
         likes.update( { 'likes': 0});
     })
     .catch((error) =>  {
-         console.debug(error)
          {/* @TODO
            do sth with errors
          */}
