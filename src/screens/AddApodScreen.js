@@ -29,6 +29,7 @@ export default class AddApodScreen extends Component {
     }
 
     putPhoto(data) {
+        console.debug('aas ', data)
         this.props.navigation.navigate('AddApod', {
             data:data,
             title:this.state.title,
@@ -95,6 +96,10 @@ export default class AddApodScreen extends Component {
         this.refreshScreen();
     }
 
+    launchPhotoPicker = () => {
+        this.props.navigation.navigate('PhotoPicker', {putPhoto: this.putPhoto.bind(this)});
+    }
+
     render() {
         var image;
         if (this.state.photo !== '') {
@@ -122,7 +127,7 @@ export default class AddApodScreen extends Component {
                             onChangeText={description => this.setState({description})}
                             value={this.state.description}
                         />
-                        <TouchableOpacity style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={ () => this.launchPhotoPicker()}>
                             <Text style={styles.buttonText}>Choose photo</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()}>
