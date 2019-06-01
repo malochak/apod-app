@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, ScrollView, RefreshControl, ActivityIndicator} from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
-import UserApod from "../components/apod/userapod/UserApod";
+import UserApod from "../components/apod/userapod/UserApod.js";
 
 export default class UserApodScreen extends Component {
     constructor(props) {

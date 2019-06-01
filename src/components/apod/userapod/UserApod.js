@@ -92,6 +92,7 @@ export default class UserApod extends Component {
                 favs.update({ 'title': this.props.title});
                 favs.update({ 'url': this.props.url});
                 favs.update({ 'date': this.props.date});
+                favs.update({ 'id': id});
                 this.setState({ star: 'ios-star' });
             }
         } else {

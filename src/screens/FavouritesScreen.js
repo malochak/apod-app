@@ -20,8 +20,8 @@ export default class FavouritesScreen extends Component {
     });
   }
 
-  navigateToApod(apodDate) {
-    this.props.navigation.navigate('SelectedFavsApod', {apodDate});
+  navigateToApod(apodDate, apodId) {
+    this.props.navigation.navigate('SelectedFavsApod', {apodDate: apodDate, apodId: apodId});
   }
 
   render() {
@@ -33,10 +33,8 @@ export default class FavouritesScreen extends Component {
         var favItem = this.state.favourites[item];
         items.push(
             <TouchableOpacity
-
                 key = {favItem.date}
-
-                onPress={ () => this.navigateToApod(favItem.date)} >
+                onPress={ () => this.navigateToApod(favItem.date, favItem.id)} >
               <FavouriteApod
                   key={favItem.date}
                   url={favItem.url}
