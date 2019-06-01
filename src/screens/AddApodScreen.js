@@ -15,6 +15,15 @@ export default class AddApodScreen extends Component {
         };
     }
 
+    refreshScreen() {
+        this.setState({
+            title: '',
+            description: '',
+            errorMessage: null,
+            photo: ''
+        })
+    }
+
     launchCamera() {
         this.props.navigation.navigate('Camera', {putPhoto: this.putPhoto.bind(this)});
     }
@@ -83,14 +92,13 @@ export default class AddApodScreen extends Component {
                 userApodRef.update({ 'url': url});
             })
         });
+        this.refreshScreen();
     }
 
     render() {
         var image;
         if (this.state.photo !== '') {
             image = <Image  source={{uri: this.state.photo}} style={{height: 300, width: 200}}/>
-        }else {
-            image = <Text>Add image</Text>
         }
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -120,8 +128,8 @@ export default class AddApodScreen extends Component {
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()}>
                             <Text style={styles.buttonText}>Take new photo</Text>
                         </TouchableOpacity>
-                        <Button title='Upload' style={styles.buttonContainer} onPress={() => this.uploadApod()}/>
                         {image}
+                        <Button title='Upload' style={styles.buttonContainer} onPress={() => this.uploadApod()}/>
                     </View>
                 </ScrollView>
 
