@@ -33,4 +33,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#262e3d'
   },
-})
+});
+
+console.disableYellowBox = true;
