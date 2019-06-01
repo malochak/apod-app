@@ -157,11 +157,11 @@ export default class AddApodScreen extends Component {
                             <Text style={styles.buttonText}>Choose photo</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()}>
-                            <Text style={styles.buttonText}>Take new photo</Text>
+                            <Text style={styles.buttonText}>Take a picture</Text>
                         </TouchableOpacity>
                         <View style={styles.imageStyle}>{image}</View>
-                        <TouchableOpacity style={styles.uploadContainer} onPress={() => this.uploadApod()}>
-                            <Icon style={styles.photo}name='ios-cloud-upload' color={"#fff"} size={40} />
+                        <TouchableOpacity style={styles.uploadContainer} onPress={() => this.checkAndUpload()}>
+                            <Icon style={styles.photo} name='ios-cloud-upload' color={"#fff"} size={40} />
                             <Text style={styles.upload}> Upload </Text>
                         </TouchableOpacity>
                     </View>
