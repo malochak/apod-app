@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Alert} from 'react-native';
 import { firebase } from '../../logon/authentication_logic';
 import ApodPic from '../ApodPic.js';
 import ApodVideo from '../ApodVideo.js';
-import ApodComments from '../ApodComments.js';
+import UserApodComments from './UserApodComments.js';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class UserApod extends Component {
@@ -153,6 +153,7 @@ export default class UserApod extends Component {
 
                     <Text style={styles.description}>  {this.props.description} </Text>
                 </View>
+                    <UserApodComments apodId={this.props.id} />
             </View>
         );
     }

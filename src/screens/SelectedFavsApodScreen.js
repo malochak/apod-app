@@ -25,6 +25,9 @@ export default class SelectedFavsApodScreen extends Component {
         if (this.checkIfItsNasaApod()) {
             this.getNewApod(this.props.navigation.state.params.apodDate);
         } else {
+            this.setState({
+                apodId: this.props.navigation.state.params.apodId
+            });
             this.getUserApod(this.props.navigation.state.params.apodId);
         }
         BackHandler.addEventListener('hardwareBackPress', this.goBackToFavs);
