@@ -211,4 +211,4 @@ const styles = StyleSheet.create({
   date: {
     marginBottom: 5
   }
-})
+});
