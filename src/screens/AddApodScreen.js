@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
+import {Alert, KeyboardAvoidingView, View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+const TITLE_MIN_LENGTH = 2;
 export default class AddApodScreen extends Component {
 
     constructor(props) {
@@ -61,6 +62,33 @@ export default class AddApodScreen extends Component {
 
         return year + "-" + month + "-" + day;
     };
+
+    checkAndUpload() {
+        if (this.isApodValid()) {
+            this.uploadApod();
+        }else {
+            Alert.alert("Error adding an APOD", this.getMessageForInvalidApod());
+        }
+    }
+
+    isApodValid() {
+        return this.state.title.length > TITLE_MIN_LENGTH && this.state.photo !== '';
+    }
+
+    getMessageForInvalidApod() {
+        var message = '';
+        if (this.state.title.length > TITLE_MIN_LENGTH) {
+            console.debug('title valid')
+        }else {
+            message += `Enter a title with at least ${TITLE_MIN_LENGTH+1} characters. `;
+        }
+        if (this.state.photo !== '') {
+            console.debug('photo valid')
+        }else {
+            message += `Add a picture. `;
+        }
+        return message;
+    }
 
     async uploadApod() {
         const {
@@ -212,12 +240,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#2c3e50',
     },
     header:{
-        color: "#fff",
-        fontSize:26,
-        flex:1,
-        marginTop:10,
-        marginBottom: 30,
+        fontSize: 20,
         textAlign: 'center',
+        marginBottom: 20,
+        marginTop: 15,
+        color: '#92CBC5'
     },
     content: {
         padding: 20
