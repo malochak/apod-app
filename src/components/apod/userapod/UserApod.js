@@ -134,14 +134,7 @@ export default class UserApod extends Component {
                 </View>
                 <Text style={{ marginTop: 6, color: "#fff" }}> Author: {this.props.author} </Text>
                 <Text style={styles.title}> {this.props.title} </Text>
-                {this.props.mediaType == 'image' ?
-                    (
-                        <ApodPic url={this.props.url} />
-                    )
-                    : (
-                        <ApodVideo url={this.props.url} style={{ height: 200 }} />
-                    )
-                }
+                <ApodPic url={this.props.url} />
                 <View style={styles.infoContainer}>
 
                     <View style={styles.grid}>

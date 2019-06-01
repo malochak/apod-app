@@ -27,7 +27,6 @@ export default class UserApodScreen extends Component {
                 apodData: item,
                 apodId: id
             });
-            console.debug(id);
         });
     }
 

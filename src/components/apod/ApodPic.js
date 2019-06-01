@@ -14,7 +14,7 @@ export default class ApodPic extends Component {
         sth like
         <ActivityIndicator size="large" color="#2980b6"  />
     */}
-    if(this.props.url !== undefined || this.props.url !== null || this.props.url !== '') {
+    if(this.props.url !== undefined) {
       return (
           <View style={styles.border}>
             <Image style={styles.container}
