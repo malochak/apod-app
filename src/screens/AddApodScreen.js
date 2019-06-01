@@ -1,35 +1,30 @@
 import React, {Component} from 'react';
-import {KeyboardAvoidingView, View, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
+import {KeyboardAvoidingView, View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 
-
-const INIT = {
-    title : 'elo',
-    errorMessage: null,
-    photo: 'ttt'
-}
 
 export default class AddApodScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = { 
-            title: '', 
-            errorMessage: null, 
+            title: '',
+            description: '',
+            errorMessage: null,
             photo: ''
         };
     }
 
     launchCamera() {
-        this.props.navigation.navigate('Camera');
+        this.props.navigation.navigate('Camera', {putPhoto: this.putPhoto.bind(this)});
     }
 
-    putPhoto(photo) {
-        this.props.navigation.navigate('AddApod', {photo});
-        //should change the state with photo.....
-        // this.uploadApod(photo);
-        this.setState(...INIT)
-        
+    putPhoto(data) {
+        this.props.navigation.navigate('AddApod', {
+            data:data,
+            title:this.state.title,
+            description: this.state.description
+        });
     }
 
     componentDidMount() {
@@ -37,29 +32,38 @@ export default class AddApodScreen extends Component {
     }
 
     getPhoto = (param) => {
-
         if(param != undefined){
-        this.setState({title : 'test',
+        this.setState({
+                    title: param.title,
+                    description: param.description,
                     errorMessage: null,
-                    photo : param.data.uri} )
-            console.debug(this.state)
-        }else {
-            console.debug('equals undef')
+                    photo: param.data.uri} )
         }
+    };
 
-    }
+    createTodaysDate() {
+        var now = new Date();
+        var year = now.getFullYear().toString();
+        var month = (0+(now.getMonth()+1).toString()).slice(-2);
+        var day = (0+(now.getDate().toString())).slice(-2);
 
-    async uploadApod(photo) {
+        return year + "-" + month + "-" + day;
+    };
+
+    async uploadApod() {
         var userApodRef = firebase.app.database().ref('userApods/');
-        var userApod = {title: 'title', explanation: 'explanation', date: '2099-01-01', likes: 0};
+        var userApod = {
+            title: this.state.title,
+            explanation: this.state.description,
+            date: this.createTodaysDate(),
+            author: firebase.auth.currentUser.email,
+            likes: 0};
         userApodRef.push(userApod).then(res => {
             var userApodId = res.getKey();
-            this.uploadPhoto(photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
+            this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
         });
     }
         
-    changeState = (state) => this.setState({title : 'test', errorMessage : null, photo : state})
-
     async uploadPhoto(photo, imgName, userApodRef) {
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -81,25 +85,17 @@ export default class AddApodScreen extends Component {
         });
     }
 
-    pepe() {
-
-
-
-    }
-
     render() {
         var image;
-        console.debug(this.state)
-        console.debug(this.state.photo)
         if (this.state.photo !== '') {
-            image = <Text> {this.state.photo} </Text>
+            image = <Image  source={{uri: this.state.photo}} style={{height: 300, width: 200}}/>
         }else {
             image = <Text>Add image</Text>
         }
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
-                <View style={styles.imageDataContainer}>
+                <ScrollView style={styles.imageDataContainer}>
                     <View style={styles.content}>
                         <TextInput
                             style={styles.input}
@@ -124,10 +120,10 @@ export default class AddApodScreen extends Component {
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()}>
                             <Text style={styles.buttonText}>Take new photo</Text>
                         </TouchableOpacity>
-                        <Button title='Upload' style={styles.buttonContainer} onPress={() => this.pepe()}/>
+                        <Button title='Upload' style={styles.buttonContainer} onPress={() => this.uploadApod()}/>
                         {image}
                     </View>
-                </View>
+                </ScrollView>
 
 
             </KeyboardAvoidingView>

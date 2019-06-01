@@ -18,7 +18,7 @@ export default class Camera2 extends Component {
 
     takePicture() {
         this.camera.takePictureAsync({ skipProcessing: true }).then((data) => {
-            this.props.navigation.navigate('AddApod', {data})
+            this.props.navigation.state.params.putPhoto(data);
         });
     }
 
