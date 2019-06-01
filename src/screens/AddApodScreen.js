@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {KeyboardAvoidingView, View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class AddApodScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             title: '',
             description: '',
             errorMessage: null,
@@ -72,7 +72,7 @@ export default class AddApodScreen extends Component {
             this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
         });
     }
-        
+
     async uploadPhoto(photo, imgName, userApodRef) {
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -105,18 +105,21 @@ export default class AddApodScreen extends Component {
 
                 <ScrollView style={styles.imageDataContainer}>
                     <View style={styles.content}>
+                        <Text style={styles.header}>Add your own APOD</Text>
                         <TextInput
                             style={styles.input}
                             autoCapitalize="none"
                             placeholder="Title"
+                            placeholderTextColor="#fff"
                             onChangeText={title => this.setState({title})}
                             value={this.state.title}
                         />
                         <TextInput
-                            style={styles.input}
+                            style={styles.inputField}
                             autoCapitalize="none"
                             multiline={true}
                             numberOfLines={4}
+                            placeholderTextColor="#fff"
                             editable={true}
                             placeholder="Description"
                             onChangeText={description => this.setState({description})}
@@ -128,8 +131,11 @@ export default class AddApodScreen extends Component {
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.launchCamera()}>
                             <Text style={styles.buttonText}>Take new photo</Text>
                         </TouchableOpacity>
-                        {image}
-                        <Button title='Upload' style={styles.buttonContainer} onPress={() => this.uploadApod()}/>
+                        <View style={styles.imageStyle}>{image}</View>
+                        <TouchableOpacity style={styles.uploadContainer} onPress={() => this.uploadApod()}>
+                            <Icon style={styles.photo}name='ios-cloud-upload' color={"#fff"} size={40} />
+                            <Text style={styles.upload}> Upload </Text>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
 
@@ -147,6 +153,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#2c3e50',
     },
+    header:{
+        color: "#fff",
+        fontSize:26,
+        flex:1,
+        marginTop:10,
+        marginBottom: 30,
+        textAlign: 'center',
+    },
     content: {
         padding: 20
     },
@@ -158,8 +172,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(225,225,225,0.2)',
         marginBottom: 10,
         padding: 10,
-        color: '#fff'
+        color: '#fff',
     },
+    inputField: {
+        height: 140,
+        backgroundColor: 'rgba(225,225,225,0.2)',
+        marginBottom: 10,
+        padding: 10,
+        color: '#fff',},
     buttonContainer:{
         backgroundColor: '#92cbc5',
         paddingVertical: 15,
@@ -170,7 +190,27 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '700',
         fontSize: 16,
-        opacity: 0.7
+        opacity: 0.9
+    },
+    imageStyle:{
+        alignItems: 'center',
+        flex: 1,
+        marginTop:16,
+    },
+    uploadContainer:{
+        flex:2,
+        alignItems: 'center',
+        flexDirection:'row',
+        justifyContent: 'center',
+        marginBottom:15,
+    },
+    upload:{
+        color: "#fff",
+        fontSize:20,
+    },
+    photo:{
+        marginTop:10,
+        marginRight: 10
     }
 
 });
