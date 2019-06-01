@@ -73,7 +73,10 @@ export default class ApodComments extends Component {
         this.setState({
             commentText: ''
         })
+    }
 
+    isUserLoggedIn() {
+        return firebase.auth.currentUser != null;
     }
 
     render() {
@@ -88,6 +91,34 @@ export default class ApodComments extends Component {
                 )
             });
 
+            var addComment;
+            if (this.isUserLoggedIn()) {
+                addComment = (
+                    <View style={{ display: this.state.displayCommentInput
+                        , flexDirection: "row", flex: 1, marginTop: 20, marginBottom:20 }}>
+                        <TextInput editable={true}
+                                   onChangeText={commentText => this.setState({ commentText })}
+                                   value={this.state.commentText}
+                                   style={styles.commentInput}
+                                   placeholder="Share your opinion"
+                                   placeholderTextColor="#fff"
+                        />
+                        <TouchableOpacity
+                            onPress={() => this.addComment()}
+                            style={styles.addComment}
+                        >
+                            <Icon name='md-send' color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
+                        </TouchableOpacity>
+                    </View>
+                )
+            }else {
+                addComment =
+                    <View style={{ display: this.state.displayCommentInput
+                        , flexDirection: "row", flex: 1, marginTop: 20, marginBottom:20 }}>
+                        <Text style={styles.commentMessage}>Log in to add comment.</Text>
+                    </View>
+            }
+
             return (
                 <View style={styles.commentSection}>
                     <TouchableOpacity
@@ -97,27 +128,7 @@ export default class ApodComments extends Component {
                         <Icon name={this.state.icon} color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
                         <Text style={styles.btn}>{this.state.msg}</Text>
                     </TouchableOpacity>
-
-
-                    <View style={{ display: this.state.displayCommentInput, flexDirection: "row", flex: 1, marginTop: 20, marginBottom:20 }}>
-
-                        <TextInput editable={true}
-                            onChangeText={commentText => this.setState({ commentText })}
-                            value={this.state.commentText}
-                            style={styles.commentInput}
-                            placeholder="Share your opinion"
-                            placeholderTextColor="#fff"
-                        />
-
-                        <TouchableOpacity
-                            onPress={() => this.addComment()}
-                            style={styles.addComment}
-                        >
-                            <Icon name='md-send' color={"#92CBC5"} size={24} style={{ marginRight: 15 }} />
-                        </TouchableOpacity>
-
-
-                    </View>
+                    {addComment}
                     <View style={{ display: this.state.displayCommentInput }}>
                         {comments}
                     </View>
@@ -167,6 +178,14 @@ const styles = StyleSheet.create({
         marginRight: 8,
         borderBottomWidth: 3,
         borderColor: '#92CBC5',
+        flex:0.9,
+        color:"#fff"
+    },
+    commentMessage: {
+        marginTop: 30,
+        paddingLeft: 5,
+        marginLeft: 8,
+        marginRight: 8,
         flex:0.9,
         color:"#fff"
     },
