@@ -10,6 +10,7 @@ import SelectedFavsApodScreen from '../../screens/SelectedFavsApodScreen.js';
 import SelectedTopApodScreen from '../../screens/SelectedTopApodScreen.js';
 import AddApodScreen from '../../screens/AddApodScreen.js';
 import Camera from '../../components/camera/Camera.js';
+import UserApodScreen from '../../screens/UserApodScreen.js';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createSwitchNavigator} from 'react-navigation';
@@ -82,6 +83,13 @@ import { createSwitchNavigator} from 'react-navigation';
             <Icon name='ios-rocket' color={tintColor} size={24} />
           )
         }},
+      UserApodScreen: { screen: UserApodScreen,
+          navigationOptions: {
+              tabBarLabel: 'Users APODS',
+              tabBarIcon: ({tintColor}) => (
+                  <Icon name='ios-rocket' color={tintColor} size={24} />
+              )
+          }},
       Profile: { screen: ProfileScreen,
         navigationOptions: {
           tabBarLabel: 'Profile',
