@@ -14,13 +14,17 @@ export default class ApodPic extends Component {
         sth like
         <ActivityIndicator size="large" color="#2980b6"  />
     */}
-    return (
-      <View style={styles.border}>
-        <Image style={styles.container}
-          source={{uri: this.props.url}}
-          />
-      </View>
-    );
+    if(this.props.url !== undefined || this.props.url !== null || this.props.url !== '') {
+      return (
+          <View style={styles.border}>
+            <Image style={styles.container}
+                   source={{uri: this.props.url}}
+            />
+          </View>
+      );
+    }else {
+      return <Text>NO IMAGE</Text>
+    }
   }
 }
 

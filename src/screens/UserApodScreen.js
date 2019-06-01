@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, ScrollView, RefreshControl, ActivityIndicator} from 'react-native';
-import axios from 'axios';
 import { firebase } from '../components/logon/authentication_logic';
-import Apod from '../components/apod/Apod.js'
+import UserApod from "../components/apod/userapod/UserApod";
 
 export default class UserApodScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             apodData: '',
-            date: 'today',
+            apodId: '',
             refreshing: false
         };
     }
@@ -22,10 +21,13 @@ export default class UserApodScreen extends Component {
         firebase.app.database().ref(`userApods/`).on('value', (snapshot) => {
             var items = snapshot.val();
             var keyNames = Object.keys(items);
-            var item = items[keyNames[Math.floor(Math.random()*keyNames.length)]];
+            var id = keyNames[Math.floor(Math.random()*keyNames.length)];
+            var item = items[id];
             this.setState({
-                apodData: item
+                apodData: item,
+                apodId: id
             });
+            console.debug(id);
         });
     }
 
@@ -36,16 +38,26 @@ export default class UserApodScreen extends Component {
     };
 
     render() {
-        return (
-            <ScrollView style={styles.container} refreshControl={
-                <RefreshControl
-                    refreshing={this.state.refreshing}
-                    onRefresh={this.onRefresh}
-                />
-            }>
-                <Text style={{marginTop: 100}}>{this.state.apodData.author}</Text>
-            </ScrollView>
-        )
+        if (this.state.apodData === '') {
+            return <ActivityIndicator size="large" color="#2980b6" style={styles.loadingCircle} />
+        }else {
+            return (
+                <ScrollView style={styles.container} refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.onRefresh}
+                    />
+                }>
+                    <UserApod id={this.state.apodId}
+                              title={this.state.apodData.title}
+                              date={this.state.apodData.date}
+                              url={this.state.apodData.url}
+                              description={this.state.apodData.explanation}
+                              likes={this.state.apodData.likes}
+                              author={this.state.apodData.author}/>
+                </ScrollView>
+            )
+        }
     }
 }
 

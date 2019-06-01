@@ -120,7 +120,7 @@ export default class ApodScreen extends Component {
   };
 
   render() {
-    if (this.state.apodData == '') {
+    if (this.state.apodData === '') {
       return <ActivityIndicator size="large" color="#2980b6" style={styles.loadingCircle} />
     }
     return (
