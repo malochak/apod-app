@@ -26,7 +26,7 @@ export default class ChangePassword extends Component {
       confirmPassword
     } = this.state
 
-  
+
 }
   render() {
     return (
@@ -35,7 +35,7 @@ export default class ChangePassword extends Component {
 
           <TextInput
             secureTextEntry
-            placeholder=" Old password"
+            placeholder="Old password"
             autoCapitalize="none"
             style={styles.input}
             onChangeText={password => this.setState({ password })}
@@ -63,7 +63,7 @@ export default class ChangePassword extends Component {
             placeholderTextColor='rgba(225,225,225,0.7)'
           />
 
- 
+
         </View>
     );
   }
@@ -72,7 +72,7 @@ export default class ChangePassword extends Component {
 const styles = StyleSheet.create({
     container: {
      padding: 10,
-     width: '66%',
+     width: '100%',
     },
     input:{
         height: 40,
@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
       fontWeight: '700',
       fontSize: 16,
       opacity: 0.7,
-      
+
   }
   })

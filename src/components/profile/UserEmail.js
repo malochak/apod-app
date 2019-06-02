@@ -10,7 +10,7 @@ export default class UserEmail extends Component {
     render() {
         return (
             <View >
-                <Text style={styles.user}>Email[{" "}{this.props.user}{" "}]</Text>
+                <Text style={styles.user}>{this.props.user}</Text>
             </View>
         );
     }
@@ -19,6 +19,6 @@ export default class UserEmail extends Component {
 const styles = StyleSheet.create({
     user:{
         color: "#92CBC5",
-        fontSize:17,
+        fontSize:20,
     }
 });

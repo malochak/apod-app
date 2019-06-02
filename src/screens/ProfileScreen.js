@@ -9,11 +9,11 @@ export default class ProfileScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nickname: '',      
+      nickname: '',
       user: firebase.auth.currentUser.email,
     };
   }
- 
+
 
   handleSignOut = () => {
     auth.doSignOut()
@@ -23,13 +23,13 @@ export default class ProfileScreen extends Component {
   }
 
   handleChangePassword = () => {
-   
+
         Alert.alert("Password changed")
-  
+
   }
 
   render() {
-  
+
     return (
       <View style={styles.container}>
         <View style={styles.upperView}>
@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#2c3e50',
     },
     buttonContainer:{
-        backgroundColor: '#d31010',
-        paddingVertical: 15,
-        width: '100%',
+      backgroundColor: '#B82929',
+        paddingVertical: 14,
+        width: '95%',
         marginBottom: 10,
     },
     buttonText:{
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '700',
         fontSize: 16,
-        opacity: 0.7
+        opacity: 0.8
     },
     passTextView:{
       color: '#fff',
@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
       backgroundColor: '#59b3ba',
       paddingVertical: 15,
       width: '50%',
-      marginBottom: 38,
+      marginBottom: 25,
     },
     logo: {
       alignItems: 'center',
       width: 100,
       height: 100,
       marginBottom:30,
-     
+
     },
     upperView: {
        alignItems: 'center',
