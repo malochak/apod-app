@@ -58,11 +58,10 @@ export default class ChangePassword extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-     padding: 10,
-     width: '100%',
 
-    },
+  container: {
+    padding: 20
+   },
     input:{
         height: 40,
         backgroundColor: 'rgba(225,225,225,0.2)',
@@ -70,10 +69,7 @@ const styles = StyleSheet.create({
         padding: 10,
         color: '#fff'
     },
-    buttonContainer:{
-      backgroundColor: '#92CBC5',
-        paddingVertical: 15,
-    },
+
     buttonText:{
       color: '#fff',
       textAlign: 'center',
@@ -85,7 +81,6 @@ const styles = StyleSheet.create({
   submitContainer:{
     backgroundColor: '#59b3ba',
     paddingVertical: 15,
-    width: '50%',
     marginBottom: 25,
   },
   })

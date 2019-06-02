@@ -34,10 +34,10 @@ export default class ProfileScreen extends Component {
           <UserEmail style={styles.greetTextView} user ={this.state.user}/>
         </View>
 
-        <KeyboardAvoidingView behavior="padding" style={styles.avoidContainer}>
+        <View behavior="padding" style={styles.avoidContainer}>
           <Text style={styles.passTextView}>Change Your Password</Text>
           <ChangePassword/>
-        </KeyboardAvoidingView>
+        </View>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignOut}>
             <Text style={styles.buttonText}>SignOut</Text>
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1 ,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#2c3e50',
     },
     buttonContainer:{
@@ -61,7 +62,6 @@ const styles = StyleSheet.create({
     },
     avoidContainer:{
       width: '95%',
-      marginTop: 15,
     },
     buttonText:{
         color: '#fff',
