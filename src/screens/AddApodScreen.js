@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, KeyboardAvoidingView, View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Text, Button, Image} from 'react-native';
+import {Alert, KeyboardAvoidingView, View, ScrollView, StyleSheet, TextInput, TouchableOpacity, Text, Image} from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import Icon from 'react-native-vector-icons/Ionicons';
 

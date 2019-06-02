@@ -1,6 +1,5 @@
-
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import { auth } from '../components/logon/authentication_logic/';
 import UserEmail from '../components/profile/UserEmail'
@@ -13,7 +12,6 @@ export default class ProfileScreen extends Component {
       user: firebase.auth.currentUser.email,
     };
   }
-
 
   handleSignOut = () => {
     auth.doSignOut()

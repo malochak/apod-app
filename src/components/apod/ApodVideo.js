@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Image,
   WebView
 } from 'react-native';
 

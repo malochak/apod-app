@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,
 } from 'react-native';
 
 export default class Comment extends Component {

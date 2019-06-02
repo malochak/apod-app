@@ -1,5 +1,3 @@
-/* @flow */
-
 import React, {Component} from 'react';
 import {
   View,
@@ -66,7 +64,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-  },   
+  },
   signUpButtonContainer:{
     padding: 5
   },

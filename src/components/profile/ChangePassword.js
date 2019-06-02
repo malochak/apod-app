@@ -1,7 +1,5 @@
-/* @flow */
-
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert ,StyleSheet} from 'react-native';
 import { auth } from '../logon/authentication_logic';
 
 const INITIAL_STATE = {

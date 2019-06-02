@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import FavouriteApod from '../components/favs/FavouriteApod.js';
 
