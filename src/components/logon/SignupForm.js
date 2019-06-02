@@ -1,7 +1,5 @@
-/* @flow */
-
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity ,StyleSheet} from 'react-native';
 import { auth } from './authentication_logic/';
 
 const INITIAL_STATE = {
@@ -21,7 +19,6 @@ export default class SignupForm extends Component {
   state = INITIAL_STATE
 
   onEnterPassword = (password) =>{
-   
     if(password.trim() != 0){
      this.setState({password : password, PasswordErrorStatus : true}) ;
    }else if(password.trim() == 0){
@@ -30,7 +27,6 @@ export default class SignupForm extends Component {
   }
 
   onEnterConfirmPassword = (confirmPassword) =>{
-   
     if(confirmPassword.trim() != 0){
      this.setState({confirmPassword : confirmPassword, PasswordErrorStatus : true}) ;
    }else if(confirmPassword.trim() == 0){
@@ -39,7 +35,6 @@ export default class SignupForm extends Component {
   }
 
   onEnterEmail = (email) =>{
-   
     if(email.trim() != 0){
      this.setState({email : email, EmailErrorStatus : true}) ;
    }else if(email.trim() == 0){
@@ -48,18 +43,14 @@ export default class SignupForm extends Component {
   }
 
   onEnterNickname = (nickname) =>{
-   
     if(nickname.trim() != 0){
      this.setState({nickname : nickname, NicknameErrorStatus : true}) ;
    }else if(nickname.trim() == 0){
        this.setState({nickname : nickname, NicknameErrorStatus : true}) ;
    }
   }
-  
-  
-  handleSignUp = () => {
-    
 
+  handleSignUp = () => {
     const {
       email,
       nickname,
@@ -70,7 +61,7 @@ export default class SignupForm extends Component {
 		if(confirmPassword === password && password.length >= 6){
 		  if(nickname.length >= 4){
 			auth.doCreateUserWithEmailAndPassword(email, password)
-			.then(authUser => {        
+			.then(authUser => {
 				authUser.user.updateProfile({
 				  displayName: nickname,
 				}).then(function() {
@@ -78,7 +69,7 @@ export default class SignupForm extends Component {
 				  console.debug('in update: ', error)
 				});
 				this.setState( () => ({...INITIAL_STATE}))
-		  
+
 			}).catch(error => {
 			  this.setState({EmailErrorStatus : false}) ;
 			})
@@ -93,13 +84,13 @@ export default class SignupForm extends Component {
   render() {
     return (
       <View style={styles.container}>
-	  
+
 		   { this.state.EmailErrorStatus == false ? (
              <Text style={styles.errorMessage}>
               Invalid email or already registered
              </Text>
             ) : null  }
-			
+
           <TextInput
             placeholder="Email"
             autoCapitalize="none"
@@ -131,7 +122,7 @@ export default class SignupForm extends Component {
               Password don't match or is to short
              </Text>
             ) : null  }
-			
+
           <TextInput
             secureTextEntry
             placeholder="Password"
@@ -153,8 +144,8 @@ export default class SignupForm extends Component {
             onChangeText={confirmPassword => this.onEnterConfirmPassword(confirmPassword)}
             placeholderTextColor='rgba(225,225,225,0.7)'
           />
-            
-			
+
+
           <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignUp}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>

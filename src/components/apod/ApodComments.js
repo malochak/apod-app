@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
     ActivityIndicator,
     TouchableOpacity,
     TextInput,
@@ -61,9 +60,6 @@ export default class ApodComments extends Component {
     addComment() {
         var comment = this.state.commentText;
         if (comment.trim().length > 0) {
-            //@TODO change to user nickname
-            //date user for testing - 2018-04-05
-
             comment = comment.trim();
             var user = firebase.auth.currentUser.email;
             var commentToAdd = { user: user, comment: comment };

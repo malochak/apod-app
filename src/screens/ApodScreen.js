@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {
-  View,
   Text,
   StyleSheet,
-  KeyboardAvoidingView,
-  Image,
   ScrollView,
   RefreshControl,
   ActivityIndicator

@@ -3,17 +3,12 @@ import {
   View,
   Text,
   StyleSheet,
-  KeyboardAvoidingView,
   Image,
-  ActivityIndicator
 } from 'react-native';
 
 export default class ApodPic extends Component {
   render() {
-    {/* @TODO loading img icon
-        sth like
-        <ActivityIndicator size="large" color="#2980b6"  />
-    */}
+    {}
     if(this.props.url !== undefined) {
       return (
           <View style={styles.border}>

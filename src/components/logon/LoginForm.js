@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert ,StyleSheet } from 'react-native';
 import { auth } from './authentication_logic/';
 
 
@@ -17,7 +17,6 @@ export default class LoginForm extends Component {
   ErrorStatus : true, }
 
   onEnterText = (email) =>{
-   
     if(email.trim() != 0){
      this.setState({email : email, ErrorStatus : true}) ;
    }else if(email.trim() == 0){
@@ -26,7 +25,6 @@ export default class LoginForm extends Component {
  }
 
  onEnterPassword = (password) =>{
-   
   if(password.trim() != 0){
    this.setState({password : password, ErrorStatus : true}) ;
  }else if(password.trim() == 0){
@@ -34,16 +32,11 @@ export default class LoginForm extends Component {
  }
 }
 
-
   handleLogin = (event) => {
- 
-
     const {
       email,
       password,
     } = this.state;
-
-   
 
     auth.doSignInWithEmailAndPassword(email, password)
     .then(() => {
@@ -52,7 +45,6 @@ export default class LoginForm extends Component {
     })
     .catch( error => {
       this.setState({ErrorStatus : false}) ;
-     
     })
   }
 
@@ -72,8 +64,8 @@ export default class LoginForm extends Component {
           style={styles.input}
           autoCapitalize="none"
           placeholder="Email"
-          onChangeText={email => this.setState({ email })} 
-          value={this.state.email} 
+          onChangeText={email => this.setState({ email })}
+          value={this.state.email}
           onChangeText={email => this.onEnterText(email)}
 
         />
@@ -88,7 +80,7 @@ export default class LoginForm extends Component {
           onChangeText={password => this.onEnterPassword(password)}
 
         />
-         
+
         <TouchableOpacity style={styles.signInButtonContainer} onPress={this.handleLogin}>
           <Text  style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
