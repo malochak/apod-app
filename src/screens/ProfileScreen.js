@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, KeyboardAvoidingView } from 'react-native';
 import { firebase } from '../components/logon/authentication_logic';
 import { auth } from '../components/logon/authentication_logic/';
 import UserEmail from '../components/profile/UserEmail'
@@ -40,11 +40,13 @@ export default class ProfileScreen extends Component {
           <UserEmail style={styles.greetTextView} user ={this.state.user}/>
         </View>
 
-        <Text style={styles.passTextView}>Change Your Password</Text>
-        <ChangePassword/>
-        <TouchableOpacity style={styles.submitContainer} onPress={this.handleChangePassword}>
-            <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
+        <KeyboardAvoidingView behavior="padding" style={styles.avoidContainer}>
+          <Text style={styles.passTextView}>Change Your Password</Text>
+          <ChangePassword/>
+          <TouchableOpacity style={styles.submitContainer} onPress={this.handleChangePassword}>
+              <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignOut}>
             <Text style={styles.buttonText}>SignOut</Text>
@@ -65,6 +67,11 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         width: '95%',
         marginBottom: 10,
+    },
+    avoidContainer:{
+      alignItems: 'center',
+      width: '95%',
+      marginTop: 15,
     },
     buttonText:{
         color: '#fff',
@@ -104,6 +111,6 @@ const styles = StyleSheet.create({
        alignItems: 'center',
        textAlign: 'center',
        flex: 1,
-       paddingTop:70,
+       paddingTop:50,
     }
 })

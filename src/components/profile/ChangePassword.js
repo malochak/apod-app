@@ -16,18 +16,6 @@ export default class ChangePassword extends Component {
 
   state = INITIAL_STATE
 
-
-  handleSignUp = () => {
-    Alert.alert("alert")
-
-    const {
-      password,
-      newpassword,
-      confirmPassword
-    } = this.state
-
-
-}
   render() {
     return (
       <View style={styles.container}>
