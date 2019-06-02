@@ -96,9 +96,11 @@ export default class AddApodScreen extends Component {
             author: firebase.auth.currentUser.email,
             likes: 0};
         userApodRef.push(userApod).then(res => {
+            this.sendPushNotification(this.state.title);
             var userApodId = res.getKey();
             this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
         });
+
     }
 
     async uploadPhoto(photo, imgName, userApodRef) {
@@ -122,6 +124,35 @@ export default class AddApodScreen extends Component {
         });
         this.refreshScreen();
     }
+
+    sendPushNotification = (title) => {
+        
+        firebase.app.database().ref(`users/notifications/`).on('value', snapshot => {
+            
+            snapshot.forEach(child => {
+                
+                let token = child.val().push_token
+
+                let response = fetch('https://exp.host/--/api/v2/push/send', {
+                    method: 'POST',
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      to: token,
+                      sound: 'default',
+                      title: title,
+                      body: 'Check this new APOD out!'
+                    })
+                  });
+            });
+            
+          });
+        
+
+
+      };
 
     launchPhotoPicker = () => {
         this.props.navigation.navigate('PhotoPicker', {putPhoto: this.putPhoto.bind(this)});
