@@ -95,11 +95,11 @@ export default class AddApodScreen extends Component {
             date: this.createTodaysDate(),
             author: firebase.auth.currentUser.email,
             likes: 0};
-        // userApodRef.push(userApod).then(res => {
-        //     var userApodId = res.getKey();
-        //     this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
-        // });
-        this.sendPushNotification(this.state.title);
+        userApodRef.push(userApod).then(res => {
+            this.sendPushNotification(this.state.title);
+            var userApodId = res.getKey();
+            this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
+        });
 
     }
 

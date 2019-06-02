@@ -16,8 +16,6 @@ import Apod from '../components/apod/Apod.js'
 
 import {APOD_API_KEY} from 'react-native-dotenv'
 
-// import {registerForPushNotificationsAsync} from '../components/notification/Notification'
-
 export default class ApodScreen extends Component {
   constructor(props) {
     super(props);
