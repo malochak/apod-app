@@ -1,28 +1,19 @@
 import React, { Component } from 'react';
-import {
-  View,
-  ListView,
-  Text,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Button,
-  Alert
-} from 'react-native';
+import {View, Text, StyleSheet, Alert, TouchableWithoutFeedback, Modal} from 'react-native';
 import { firebase } from '../logon/authentication_logic';
 import ApodPic from './ApodPic.js';
 import ApodVideo from './ApodVideo.js';
 import ApodComments from './ApodComments.js';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ImageViewer from "react-native-image-zoom-viewer";
 
 export default class Apod extends Component {
   constructor(props) {
     super(props);
     this.state = {
       star: 'ios-star-outline',
-      heart: 'ios-heart-empty'
+      heart: 'ios-heart-empty',
+      openImgFullView: false
     };
   }
 
@@ -45,9 +36,12 @@ export default class Apod extends Component {
     } else {
         this.setState({
           heart: 'ios-heart-empty',
-          star: 'ios-star-outline'
+          star: 'ios-star-outline',
          });
     }
+    this.setState({
+        openImgFullView: false
+    });
   }
 
   updateLikes(date) {
@@ -133,38 +127,77 @@ export default class Apod extends Component {
     return firebase.auth.currentUser != null;
   }
 
+  onImagePressed() {
+      const time = new Date().getTime();
+      const delta = time - this.lastPress;
+
+      const DOUBLE_PRESS_DELAY = 300;
+      if (delta < DOUBLE_PRESS_DELAY) {
+          this.onDoubleClicked();
+      }
+      this.lastPress = time;
+  }
+
+  onDoubleClicked() {
+      console.debug('hej')
+      console.debug(this.state.openImgFullView)
+      this.setState({
+          openImgFullView: !this.state.openImgFullView
+      })
+  }
+
   render() {
-    return (
+      if (this.state.openImgFullView) {
+          const image = [{
+              url: this.props.url
+          }];
 
-      <View style={styles.container}>
-        <View style={styles.topGrid}>
-          <Icon style={{ marginRight: 25 }} name={this.state.star} color='#92CBC5' size={28}
-            onPress={() => this.updateFavourites(this.props.date) } />
-          <Text style={{ marginTop: 6, color: "#fff" }}> {this.props.date} </Text>
-        </View>
-        <Text style={styles.title}> {this.props.title} </Text>
-        {this.props.mediaType == 'image' ?
-          (
-            <ApodPic url={this.props.url} />
-          )
-          : (
-            <ApodVideo url={this.props.url} style={{ height: 200 }} />
-          )
-        }
-        <View style={styles.infoContainer}>
+          return(
+              <TouchableWithoutFeedback onPress={() => this.onImagePressed()}>
+                  <View>
+                      <Modal visible={true} transparent={true}>
+                          <ImageViewer imageUrls={image}
+                                       onDoubleClick={() => this.onDoubleClicked()}/>
+                      </Modal>
+                  </View>
+              </TouchableWithoutFeedback>
+          );
+      }else {
+          return (
+              <View style={styles.container}>
+                  <View style={styles.topGrid}>
+                      <Icon style={{marginRight: 25}} name={this.state.star} color='#92CBC5' size={28}
+                            onPress={() => this.updateFavourites(this.props.date)}/>
+                      <Text style={{marginTop: 6, color: "#fff"}}> {this.props.date} </Text>
+                  </View>
+                  <Text style={styles.title}> {this.props.title} </Text>
+                  {this.props.mediaType == 'image' ?
+                      (
+                          <TouchableWithoutFeedback onPress={() => this.onImagePressed()}>
+                              <View>
+                                  <ApodPic url={this.props.url}/>
+                              </View>
+                          </TouchableWithoutFeedback>
+                      )
+                      : (
+                          <ApodVideo url={this.props.url} style={{height: 200}}/>
+                      )
+                  }
+                  <View style={styles.infoContainer}>
 
-          <View style={styles.grid}>
-            <Icon style={{ marginRight: 10 }} name={this.state.heart} color='#92CBC5' size={24}
-             onPress={() =>  this.updateLikes(this.props.date) } />
+                      <View style={styles.grid}>
+                          <Icon style={{marginRight: 10}} name={this.state.heart} color='#92CBC5' size={24}
+                                onPress={() => this.updateLikes(this.props.date)}/>
 
-            <Text style={{ marginLeft: 10, marginTop: 3, color: '#fff' }}> {this.props.likes} </Text>
-          </View>
+                          <Text style={{marginLeft: 10, marginTop: 3, color: '#fff'}}> {this.props.likes} </Text>
+                      </View>
 
-          <Text style={styles.description}>  {this.props.description} </Text>
-        </View>
-            <ApodComments date={this.props.date}/>
-      </View>
-    );
+                      <Text style={styles.description}>  {this.props.description} </Text>
+                  </View>
+                  <ApodComments date={this.props.date}/>
+              </View>
+          );
+      }
   }
 }
 
