@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Modal } from 'react-native';
-import { firebase, auth } from './src/components/logon/authentication_logic/'
+import { StyleSheet, SafeAreaView} from 'react-native';
+import { firebase} from './src/components/logon/authentication_logic/'
 
 import AppContainer from './src/components/navigation/TabBarNavigation'
+
 
 export default class App extends React.Component {
 
