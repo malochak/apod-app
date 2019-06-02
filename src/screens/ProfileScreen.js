@@ -22,12 +22,6 @@ export default class ProfileScreen extends Component {
     })
   }
 
-  handleChangePassword = () => {
-
-        Alert.alert("Password changed")
-
-  }
-
   render() {
 
     return (
@@ -40,13 +34,10 @@ export default class ProfileScreen extends Component {
           <UserEmail style={styles.greetTextView} user ={this.state.user}/>
         </View>
 
-        <KeyboardAvoidingView behavior="padding" style={styles.avoidContainer}>
+        <View behavior="padding" style={styles.avoidContainer}>
           <Text style={styles.passTextView}>Change Your Password</Text>
           <ChangePassword/>
-          <TouchableOpacity style={styles.submitContainer} onPress={this.handleChangePassword}>
-              <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
+        </View>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignOut}>
             <Text style={styles.buttonText}>SignOut</Text>
@@ -60,6 +51,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1 ,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#2c3e50',
     },
     buttonContainer:{
@@ -69,9 +61,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     avoidContainer:{
-      alignItems: 'center',
       width: '95%',
-      marginTop: 15,
     },
     buttonText:{
         color: '#fff',
@@ -93,12 +83,6 @@ const styles = StyleSheet.create({
       fontWeight: '700',
       fontSize: 16,
       opacity: 0.7,
-    },
-    submitContainer:{
-      backgroundColor: '#59b3ba',
-      paddingVertical: 15,
-      width: '50%',
-      marginBottom: 25,
     },
     logo: {
       alignItems: 'center',
