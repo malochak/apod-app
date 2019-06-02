@@ -22,12 +22,6 @@ export default class ProfileScreen extends Component {
     })
   }
 
-  handleChangePassword = () => {
-
-        Alert.alert("Password changed")
-
-  }
-
   render() {
 
     return (
@@ -43,9 +37,6 @@ export default class ProfileScreen extends Component {
         <KeyboardAvoidingView behavior="padding" style={styles.avoidContainer}>
           <Text style={styles.passTextView}>Change Your Password</Text>
           <ChangePassword/>
-          <TouchableOpacity style={styles.submitContainer} onPress={this.handleChangePassword}>
-              <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
         </KeyboardAvoidingView>
 
         <TouchableOpacity style={styles.buttonContainer} onPress={this.handleSignOut}>
@@ -69,7 +60,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     avoidContainer:{
-      alignItems: 'center',
       width: '95%',
       marginTop: 15,
     },
@@ -93,12 +83,6 @@ const styles = StyleSheet.create({
       fontWeight: '700',
       fontSize: 16,
       opacity: 0.7,
-    },
-    submitContainer:{
-      backgroundColor: '#59b3ba',
-      paddingVertical: 15,
-      width: '50%',
-      marginBottom: 25,
     },
     logo: {
       alignItems: 'center',

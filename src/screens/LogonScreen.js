@@ -9,7 +9,7 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { createSwitchNavigator, withNavigation } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
 import LoginForm from '../components/logon/LoginForm'
 

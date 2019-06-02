@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Button ,StyleSheet ,StatusBar} from 'react-native';
 import { auth } from './authentication_logic/';
-import { withNavigation } from 'react-navigation';
 
 
 const INITIAL_STATE = {
