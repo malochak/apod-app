@@ -95,10 +95,12 @@ export default class AddApodScreen extends Component {
             date: this.createTodaysDate(),
             author: firebase.auth.currentUser.email,
             likes: 0};
-        userApodRef.push(userApod).then(res => {
-            var userApodId = res.getKey();
-            this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
-        });
+        // userApodRef.push(userApod).then(res => {
+        //     var userApodId = res.getKey();
+        //     this.uploadPhoto(this.state.photo, userApodId, firebase.app.database().ref(`userApods/${userApodId}`));
+        // });
+        this.sendPushNotification(this.state.title);
+
     }
 
     async uploadPhoto(photo, imgName, userApodRef) {
@@ -122,6 +124,31 @@ export default class AddApodScreen extends Component {
         });
         this.refreshScreen();
     }
+
+    sendPushNotification = (title) => {
+        
+        firebase.app.database().ref(`users/notifications/`).on('value', snapshot => {
+            var items = snapshot.val();
+            var keyNames = Object.keys(items[0]);
+            console.debug(keyNames)
+            
+          });
+        
+
+        // let response = fetch('https://exp.host/--/api/v2/push/send', {
+        //   method: 'POST',
+        //   headers: {
+        //     Accept: 'application/json',
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify({
+        //     to: 'ExponentPushToken[LznZtqBCP3SmO2-INJHwIk]',
+        //     sound: 'default',
+        //     title: title,
+        //     body: 'Check new APOD out!'
+        //   })
+        // });
+      };
 
     launchPhotoPicker = () => {
         this.props.navigation.navigate('PhotoPicker', {putPhoto: this.putPhoto.bind(this)});

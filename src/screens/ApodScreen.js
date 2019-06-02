@@ -10,10 +10,13 @@ import {
   ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
+import { Permissions, Notifications } from 'expo';
 import { firebase } from '../components/logon/authentication_logic';
 import Apod from '../components/apod/Apod.js'
 
 import {APOD_API_KEY} from 'react-native-dotenv'
+
+// import {registerForPushNotificationsAsync} from '../components/notification/Notification'
 
 export default class ApodScreen extends Component {
   constructor(props) {
@@ -25,7 +28,37 @@ export default class ApodScreen extends Component {
     };
   }
 
-  componentDidMount() {
+  registerForPushNotificationsAsync = async () => {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      return;
+    }
+
+    try {
+      let token = await Notifications.getExpoPushTokenAsync();
+
+      firebase.app
+        .database()
+        .ref('users/notifications/' + firebase.auth.currentUser.uid + '/push_token')
+        .set(token);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
+  async componentDidMount() {
+    this.registerForPushNotificationsAsync();
     this.getNewApod(this.props.date);
   }
 
