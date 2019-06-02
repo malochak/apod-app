@@ -32,17 +32,6 @@ export default class ChangePassword extends Component {
     return (
       <View style={styles.container}>
 
-
-          <TextInput
-            secureTextEntry
-            placeholder="Old password"
-            autoCapitalize="none"
-            style={styles.input}
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholderTextColor='rgba(225,225,225,0.7)'
-          />
-
           <TextInput
             secureTextEntry
             placeholder="New Password"

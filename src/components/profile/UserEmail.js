@@ -18,6 +18,7 @@ export default class UserEmail extends Component {
 
 const styles = StyleSheet.create({
     user:{
+        marginTop:30,
         color: "#92CBC5",
         fontSize:20,
     }
