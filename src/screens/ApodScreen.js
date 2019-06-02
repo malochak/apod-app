@@ -63,7 +63,7 @@ export default class ApodScreen extends Component {
   getNewApod(date) {
     var apodDate = date;
     if (date === 'today') {
-        apodDate = this.getNewestApodDate();
+        apodDate = this.createTodaysDate();
     }else if (date === 'random') {
         apodDate = this.getRandomApodDate();
     }
@@ -96,24 +96,19 @@ export default class ApodScreen extends Component {
         likes.update( { 'likes': 0});
     })
     .catch((error) =>  {
-         {/* @TODO
-           do sth with errors
-         */}
          this.setState({
              apodData: 'error'
        });
     });
   }
 
-  getNewestApodDate() {
-      axios.get('https://api.nasa.gov/planetary/apod', {
-          params: {
-              api_key: APOD_API_KEY,
-          }
-      })
-      .then(( {data} ) =>  {
-          return data.date;
-      })
+  createTodaysDate() {
+      var now = new Date();
+      var year = now.getFullYear().toString();
+      var month = (0+(now.getMonth()+1).toString()).slice(-2);
+      var day = (0+(now.getDate().toString())).slice(-2);
+
+      return year + "-" + month + "-" + day;
   }
 
 
@@ -145,14 +140,23 @@ export default class ApodScreen extends Component {
   }
 
   onRefresh = () => {
-    this.setState({refreshing: true});
+    this.setState({refreshing: true, apodData: ''});
     this.getNewApod('random');
     this.setState({refreshing: false});
   };
 
   render() {
+    var content;
     if (this.state.apodData === '') {
       return <ActivityIndicator size="large" color="#2980b6" style={styles.loadingCircle} />
+    }else if (this.state.apodData === 'error') {
+      content = <Text style={styles.info}> There is no APOD for today yet. Refresh the page</Text>
+    }else {
+        content = <Apod title = {this.state.apodData.title} date = {this.state.apodData.date}
+                        url = {this.state.apodData.url}
+                        description = {this.state.apodData.explanation}
+                        mediaType = {this.state.apodData.media_type}
+                        likes = {this.state.apodData.likes} />
     }
     return (
       <ScrollView style={styles.container} refreshControl={
@@ -161,15 +165,7 @@ export default class ApodScreen extends Component {
                                     onRefresh={this.onRefresh}
                                   />
                                 }>
-        {/* @TODO
-           if user is not logged show only apod
-            if is logged show also comments section, rate panel and adding to favourities
-        */}
-        <Apod title = {this.state.apodData.title} date = {this.state.apodData.date}
-              url = {this.state.apodData.url}
-              description = {this.state.apodData.explanation}
-              mediaType = {this.state.apodData.media_type}
-              likes = {this.state.apodData.likes} />
+          {content}
       </ScrollView>
     );
   }
@@ -182,5 +178,12 @@ const styles = StyleSheet.create({
   loadingCircle: {
     flex: 1,
     backgroundColor: "#2c3e50"
+  },
+  info: {
+      color: "#fff",
+      fontSize: 23,
+      textAlign: "center",
+      justifyContent: 'center',
+      marginTop: 20
   }
 });
