@@ -128,26 +128,30 @@ export default class AddApodScreen extends Component {
     sendPushNotification = (title) => {
         
         firebase.app.database().ref(`users/notifications/`).on('value', snapshot => {
-            var items = snapshot.val();
-            var keyNames = Object.keys(items[0]);
-            console.debug(keyNames)
+            
+            snapshot.forEach(child => {
+                
+                let token = child.val().push_token
+
+                let response = fetch('https://exp.host/--/api/v2/push/send', {
+                    method: 'POST',
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      to: token,
+                      sound: 'default',
+                      title: title,
+                      body: 'Check this new APOD out!'
+                    })
+                  });
+            });
             
           });
         
 
-        // let response = fetch('https://exp.host/--/api/v2/push/send', {
-        //   method: 'POST',
-        //   headers: {
-        //     Accept: 'application/json',
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({
-        //     to: 'ExponentPushToken[LznZtqBCP3SmO2-INJHwIk]',
-        //     sound: 'default',
-        //     title: title,
-        //     body: 'Check new APOD out!'
-        //   })
-        // });
+
       };
 
     launchPhotoPicker = () => {
