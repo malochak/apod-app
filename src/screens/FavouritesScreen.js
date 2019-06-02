@@ -71,7 +71,8 @@ export default class FavouritesScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#2c3e50"
+    backgroundColor: "#2c3e50",
+    marginTop: 10,
   },
   header: {
     fontSize: 20,

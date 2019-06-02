@@ -14,7 +14,7 @@ passPhotoToAddApodScreen = (photo) => {
 
   render() {
     return (
-      <CameraRollPicker callback={this.passPhotoToAddApodScreen} maximum={1} selectSingleItem={true} backgroundColor={'#2c3e50'}/>
+       <CameraRollPicker callback={this.passPhotoToAddApodScreen} maximum={1} selectSingleItem={true} backgroundColor={'#2c3e50'}/>
     );
   }
 }

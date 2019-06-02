@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#2c3e50',
+        marginTop: 10,
     },
     header:{
         fontSize: 20,
