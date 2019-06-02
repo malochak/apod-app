@@ -16,7 +16,7 @@ export default class ChangePassword extends Component {
   state = INITIAL_STATE
 
   handleChangePassword = () => {
-      if(this.state.newPassword === this.state.confirmPassword) {
+      if(this.state.newPassword === this.state.confirmPassword && newPassword.length >= 6) {
     console.log(this.state.newPassword, this.state.confirmPassword)
         auth.doPasswordUpdate(this.state.newPassword)
       } else {
